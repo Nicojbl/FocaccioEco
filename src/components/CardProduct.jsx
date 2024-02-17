@@ -21,10 +21,8 @@ export const CardProduct = ({ product }) => {
   return (
     <>
       {product.stock > 0 ? (
-        <div className="bg-white shadow-lg rounded-lg p-4 hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-70 flex flex-col h-[90%] w-[80%] m-auto items-center">
-          <h3 className="text-xl font-semibold">
-            {product.title.length > 20 ? `${product.title.substring(0, 23)}...` : product.title}
-          </h3>
+        <div className="bg-white shadow-lg rounded-lg p-4 hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-70 flex flex-col h-[90%] w-[80%] md:w-full m-auto items-center">
+          <h3 className="text-xl font-semibold text-center">{product.title}</h3>
           <img
             src={`http://localhost:5000/images/${product._id}.jpg`}
             alt={product.title}
@@ -32,12 +30,19 @@ export const CardProduct = ({ product }) => {
           />
           <p className="text-gray-500">{product.description}</p>
           {product.pricePromo > 0 ? (
-            <div className="flex gap-5">
-              <p className="text-stone-500 font-bold line-through text-xs">${product.price}</p>
-              <p className="text-gray-700 font-bold text-3xl mb-2">${product.pricePromo}</p>
+            <div className="flex mb-3">
+              <p className="text-stone-500 font-bold line-through text-xs mr-4">
+                ${product.price}
+              </p>
+              <p className="text-2xl my-auto">$</p>
+              <p className="text-gray-700 font-bold text-3xl">
+                {product.pricePromo}
+              </p>
             </div>
           ) : (
-            <p className="text-gray-700 font-bold text-3xl mb-2">${product.price}</p>
+            <p className="text-gray-700 font-bold text-3xl mb-2">
+              ${product.price}
+            </p>
           )}
           <ItemCount count={count} handleCount={handleCount} />
           <button
@@ -48,14 +53,14 @@ export const CardProduct = ({ product }) => {
           </button>
         </div>
       ) : (
-        <div className="bg-white shadow-lg rounded-lg p-4 hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-70 flex flex-col h-[90%] w-[80%] m-auto items-center">
+        <div className="bg-white shadow-lg rounded-lg p-4 hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-70 flex flex-col h-[90%] w-[80%] md:w-full m-auto items-center">
           <h3 className="text-xl font-semibold">{product.title}</h3>
           <img
             src={`http://localhost:5000/images/${product._id}.jpg`}
             alt={product.title}
             className="mt-2 object-cover w-32 h-32"
           />
-          <p className="text-red-500">Producto agotado</p>
+          <p className="text-red-500 flex my-auto">Producto agotado</p>
         </div>
       )}
     </>

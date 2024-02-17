@@ -22,7 +22,7 @@ export const NavBar = () => {
   };
 
   return (
-    <nav className="border-b-2 top-0 left-0 m-auto sticky z-50">
+    <nav className="border-b-2 top-0 left-0 m-auto sticky z-50 xl:mx-[200px]">
       <div className="md:flex flex justify-between bg-white py-4 md:px-10 px-7">
         <div className="flex items-center">
           <Link to="/" className="flex items-center">

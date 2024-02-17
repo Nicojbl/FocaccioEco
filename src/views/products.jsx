@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { CardProduct } from "../components/CardProduct";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { Categories } from "../components/categories";
 
 export const Products = () => {
   const [originalProducts, setOriginalProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectCategory, setSelectCategory] = useState("Todos");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(6);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,6 +40,15 @@ export const Products = () => {
     setSelectCategory(category);
   };
 
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const categories = [
     "Todos",
     "Pañales para niños",
@@ -54,56 +63,41 @@ export const Products = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="w-full md:w-1/4 bg-gray-100 p-4">
-        <button
-          className="font-semibold mb-4 flex justify-between w-full md:hidden bg-white p-2 rounded-md shadow-md cursor-pointer pl-5"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          Categorías
-          <div>
-            <FontAwesomeIcon icon={faArrowDown} className="pr-4 h-5" />
-          </div>
-        </button>
-        <ul
-          className={`space-y-3 transition-all duration-500 ease-in-out overflow-hidden ${
-            isMobileMenuOpen ? "max-h-screen" : "max-h-0"
-          } md:max-h-screen`}
-        >
-          {categories.map((category) => (
-            <li
-              key={category}
-              className={`cursor-pointer w-fit ${
-                selectCategory === category ? "font-bold" : ""
-              }`}
-              onClick={() => {
-                handleCategory(category);
-                setIsMobileMenuOpen(!isMobileMenuOpen);
-              }}
-            >
-              {category}
-            </li>
-          ))}
-        </ul>
-        <button
-          className="w-full flex pt-2"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen && (
-            <FontAwesomeIcon
-              icon={faArrowUp}
-              className="text-center m-auto h-5 mt-4 md:hidden"
-            />
-          )}
-        </button>
-      </div>
-      <div className="w-full lg:w-3/4">
-        <div>
+    <div className="xl:mx-[200px]">
+      <div className="md:flex md:mt-[50px] md:gap-3">
+      <Categories
+        categories={categories}
+        selectCategory={selectCategory}
+        handleCategory={handleCategory}
+      />
+        <div className="md:m-auto">
           <h2 className="text-center font-semibold mt-5">Productos</h2>
-          <div>
-            {filteredProducts.map((product) => (
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 md:gap-3">
+            {currentProducts.map((product) => (
               <CardProduct key={product._id} product={product} />
             ))}
+          </div>
+          <div className="flex justify-center mt-4">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="mr-2 px-4 py-2 bg-gray-200 text-gray-600 rounded-md"
+            >
+              Anterior
+            </button>
+            <span className="mr-2 my-auto">{currentPage}</span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= filteredProducts.length}
+              className="mr-2 px-4 py-2 bg-gray-200 text-gray-600 rounded-md"
+            >
+              Siguiente
+            </button>
+            <span className="my-auto">{`Mostrando ${
+              indexOfFirstProduct + 1
+            } - ${Math.min(indexOfLastProduct, filteredProducts.length)} de ${
+              filteredProducts.length
+            } productos`}</span>
           </div>
         </div>
       </div>
