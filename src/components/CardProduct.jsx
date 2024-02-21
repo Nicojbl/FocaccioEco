@@ -21,28 +21,32 @@ export const CardProduct = ({ product }) => {
   return (
     <>
       {product.stock > 0 ? (
-        <div className="bg-white shadow-lg rounded-lg p-4 hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-70 flex flex-col h-[90%] w-[80%] md:w-full m-auto items-center">
-          <h3 className="text-xl font-semibold text-center">{product.title}</h3>
+        <div className="justify-between bg-white shadow-xl rounded-lg p-4 m-auto hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-[440px] flex flex-col w-[80%] md:w-full items-center">
           <img
             src={`http://localhost:5000/images/${product._id}.jpg`}
             alt={product.title}
-            className="mt-2 object-cover w-32 h-32"
+            className="mt-2 object-cover w-full h-48 border-b-2 border-pink-200"
           />
+          <h3 className="text-xl font-semibold text-center">{product.title}</h3>
           <p className="text-gray-500">{product.description}</p>
           {product.pricePromo > 0 ? (
             <div className="flex mb-3">
               <p className="text-stone-500 font-bold line-through text-xs mr-4">
                 ${product.price}
               </p>
-              <p className="text-2xl my-auto">$</p>
-              <p className="text-gray-700 font-bold text-3xl">
+              <p className="text-2xl mt-auto">$</p>
+              <p className="text-gray-700 mt-auto font-bold text-3xl">
                 {product.pricePromo}
               </p>
+              <p className="pl-2 mt-auto">IVA inc.</p>
             </div>
           ) : (
-            <p className="text-gray-700 font-bold text-3xl mb-2">
-              ${product.price}
-            </p>
+            <div className="flex mb-3">
+              <p className="text-gray-700 font-bold text-3xl mt-auto">
+                ${product.price}
+              </p>
+              <p className="pl-2 mt-auto">IVA inc.</p>
+            </div>
           )}
           <ItemCount count={count} handleCount={handleCount} />
           <button
@@ -53,13 +57,13 @@ export const CardProduct = ({ product }) => {
           </button>
         </div>
       ) : (
-        <div className="bg-white shadow-lg rounded-lg p-4 hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-70 flex flex-col h-[90%] w-[80%] md:w-full m-auto items-center">
-          <h3 className="text-xl font-semibold">{product.title}</h3>
+        <div className="justify-between bg-white shadow-xl rounded-lg p-4 m-auto hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-[440px] flex flex-col w-[80%] md:w-full items-center">
           <img
             src={`http://localhost:5000/images/${product._id}.jpg`}
             alt={product.title}
-            className="mt-2 object-cover w-32 h-32"
+            className="mt-2 object-cover w-full h-48 border-b-2 border-pink-200"
           />
+          <h3 className="text-xl font-semibold">{product.title}</h3>
           <p className="text-red-500 flex my-auto">Producto agotado</p>
         </div>
       )}

@@ -6,7 +6,7 @@ export const Categories = ({ categories, selectCategory, handleCategory }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="w-full md:w-1/4 md:h-fit p-6 bg-white md:border-2 border-b-2 rounded-md">
+    <div className="w-full md:h-fit p-6 bg-white md:border-2 border-b-2 rounded-md">
       <div className="hidden md:block">
         <h2 className="text-lg font-semibold mb-4 text-gray-800">Categorías</h2>
         <ul className="space-y-3">
