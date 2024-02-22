@@ -25,27 +25,27 @@ export const CardProduct = ({ product }) => {
           <img
             src={`http://localhost:5000/images/${product._id}.jpg`}
             alt={product.title}
-            className="mt-2 object-cover w-full h-48 border-b-2 border-pink-200"
+            className="mt-2 object-cover w-60 h-48 xl:w-full  border-b-2 border-pink-200 pointer-events-none"
           />
-          <h3 className="text-xl font-semibold text-center">{product.title}</h3>
-          <p className="text-gray-500">{product.description}</p>
+          <h3 className="text-xl font-semibold text-center pointer-events-none">{product.title}</h3>
+          <p className="text-gray-500 pointer-events-none">{product.description}</p>
           {product.pricePromo > 0 ? (
             <div className="flex mb-3">
-              <p className="text-stone-500 font-bold line-through text-xs mr-4">
+              <p className="text-stone-500 font-bold line-through text-xs mr-4 pointer-events-none">
                 ${product.price}
               </p>
-              <p className="text-2xl mt-auto">$</p>
-              <p className="text-gray-700 mt-auto font-bold text-3xl">
+              <p className="text-2xl mt-auto pointer-events-none">$</p>
+              <p className="text-gray-700 mt-auto font-bold text-3xl pointer-events-none">
                 {product.pricePromo}
               </p>
-              <p className="pl-2 mt-auto">IVA inc.</p>
+              <p className="pl-2 mt-auto pointer-events-none">IVA inc.</p>
             </div>
           ) : (
             <div className="flex mb-3">
-              <p className="text-gray-700 font-bold text-3xl mt-auto">
+              <p className="text-gray-700 font-bold text-3xl mt-auto pointer-events-none">
                 ${product.price}
               </p>
-              <p className="pl-2 mt-auto">IVA inc.</p>
+              <p className="pl-2 mt-auto pointer-events-none">IVA inc.</p>
             </div>
           )}
           <ItemCount count={count} handleCount={handleCount} />

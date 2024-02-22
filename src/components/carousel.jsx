@@ -42,19 +42,20 @@ export const Carousel = ({ slides }) => {
   };
 
   return (
-    <header
+    <div
       className="overflow-hidden relative"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="flex justify-center md:max-h-[600px] md:min-h-[600px]">
+      <div className="flex justify-center md:max-h-[600px]">
         {slides.map((slide, index) => (
           <img
             key={slide.id}
             src={slide.image}
             alt={slide.image}
             style={{ display: index === currentSlide ? "block" : "none" }}
+            className="xl:w-[700px] xl:h-[400px]"
           />
         ))}
       </div>
@@ -70,6 +71,6 @@ export const Carousel = ({ slides }) => {
         ))}
       </div>
       <button></button>
-    </header>
+    </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CardProduct } from "../components/CardProduct";
-import { Categories } from "../components/categories";
-import { InfoCards } from "../components/infoCards";
+import { Categories } from "../components/Categories";
+import { InfoCards } from "../components/InfoCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMoneyBill1,
@@ -76,6 +76,8 @@ export const Products = () => {
     indexOfLastProduct
   );
 
+  const marginPagesDisplayed = window.innerWidth < 768 ? 1 : 3;
+
   return (
     <div className="xl:mx-[200px]">
       <div className="md:flex md:mt-[50px] md:gap-3">
@@ -129,12 +131,12 @@ export const Products = () => {
               nextLabel={"Siguiente"}
               breakLabel={"..."}
               pageCount={Math.ceil(filteredProducts.length / productsPerPage)}
-              marginPagesDisplayed={3}
+              marginPagesDisplayed={marginPagesDisplayed}
               pageRangeDisplayed={4}
               onPageChange={handlePageClick}
               pageClassName="md:border-2 rounded-full"
               pageLinkClassName="text-gray-700 rounded-full md:w-10 md:h-10 flex items-center justify-center"
-              containerClassName={"flex items-center md:space-x-2 gap-1 md:space-x-6"}
+              containerClassName={"flex items-center space-x-2 md:space-x-2"}
               activeClassName={"bg-pink-200 border-pink-200 md:border-2 rounded-full"}
               previousClassName={"border-2 text-gray-700 rounded-full px-4 py-2"}
               nextClassName={"border-2 text-gray-700 rounded-full px-4 py-2"}
