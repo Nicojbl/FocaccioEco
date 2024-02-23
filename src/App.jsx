@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { NavBar } from "./components/NavBar.jsx";
+import { Layout } from "./components/Layout.jsx";
 import { AddProducts } from "./views/addProducts.jsx";
 import { Home } from "./views/home.jsx";
 import { ListProducts } from "./views/listProducts.jsx";
@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <NavBar />
+      <Layout>
       <Routes>
         <Route path="/ingresar" element={<Ingresar />} />
         <Route
@@ -57,6 +57,7 @@ const App = () => {
         <Route path="/productos" element={<Products />} />
         <Route path="/carrito" element={<CartView />} />
       </Routes>
+      </Layout>
     </BrowserRouter>
   );
 };

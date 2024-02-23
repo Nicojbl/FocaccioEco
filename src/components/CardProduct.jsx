@@ -38,14 +38,14 @@ export const CardProduct = ({ product }) => {
               <p className="text-gray-700 mt-auto font-bold text-3xl pointer-events-none">
                 {product.pricePromo}
               </p>
-              <p className="pl-2 mt-auto pointer-events-none">IVA inc.</p>
+              <p className="pl-2 mt-auto pointer-events-none text-xs">IVA inc.</p>
             </div>
           ) : (
             <div className="flex mb-3">
               <p className="text-gray-700 font-bold text-3xl mt-auto pointer-events-none">
                 ${product.price}
               </p>
-              <p className="pl-2 mt-auto pointer-events-none">IVA inc.</p>
+              <p className="pl-2 mt-auto pointer-events-none text-xs">IVA inc.</p>
             </div>
           )}
           <ItemCount count={count} handleCount={handleCount} />

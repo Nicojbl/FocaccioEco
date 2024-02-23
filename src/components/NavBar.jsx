@@ -52,8 +52,11 @@ export const NavBar = () => {
           </li>
         </ul>
 
-        <div className="flex items-center relative">
-          <Link to="/carrito" className="group relative">
+        <div className="flex items-center relative ">
+          <Link to="/carrito" className={`group relative ${
+            totalItems > 0 &&
+            "animate__animated animate__pulse animate__infinite animate__faster"
+          }`}>
             <FontAwesomeIcon className="w-10 h-5 mr-6 mt-4 md:h-8 md:w-10 text-pink-200" icon={faShoppingCart} />
             {totalItems > 0 && (
               <span className="absolute top-1 right-6 md:right-4 md:-top-0 bg-green-400 text-white rounded-full w-5 h-5 md:w-7 md:h-7 text-2sm md:text-lg flex items-center justify-center">

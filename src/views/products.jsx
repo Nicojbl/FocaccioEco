@@ -7,13 +7,15 @@ import {
   faMoneyBill1,
   faTruck,
   faLocationDot,
+  faMagnifyingGlass
 } from "@fortawesome/free-solid-svg-icons";
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 
 export const Products = () => {
   const [originalProducts, setOriginalProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectCategory, setSelectCategory] = useState("Todos");
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [productsPerPage] = useState(8);
 
@@ -45,6 +47,13 @@ export const Products = () => {
     setCurrentPage(0);
   }, [selectCategory, originalProducts]);
 
+  useEffect(() => {
+    const results = originalProducts.filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(results);
+  }, [searchTerm, originalProducts]);
+
   const handleCategory = (category) => {
     setSelectCategory(category);
     setCurrentPage(0);
@@ -54,6 +63,10 @@ export const Products = () => {
     const selectedPage = data.selected;
     setCurrentPage(selectedPage);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   const categories = [
@@ -118,8 +131,19 @@ export const Products = () => {
             description="Aceptamos Efectivo, Crédito, Débito y Transferencia bancaria (a modificar)"
           />
         </div>
-        <div className="md:m-auto">
-          <h2 className="text-center font-semibold mt-5">Productos</h2>
+        <div className="md:m-auto animate__animated animate__backInRight">
+          <div className="flex justify-center mt-5">
+            <input
+              type="text"
+              placeholder="Buscar..."
+              value={searchTerm}
+              onChange={handleSearch}
+              className="px-2 py-2 border md:w-[300px] border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200"
+            />
+            <button className="bg-pink-200 w-11 ml-2 rounded-lg">
+            <FontAwesomeIcon icon={faMagnifyingGlass} style={{color: "#ffffff",}} />
+            </button>
+          </div>
           <div className="grid md:grid-cols-3 lg:grid-cols-4 md:gap-3">
             {currentProducts.map((product) => (
               <CardProduct key={product._id} product={product} />
@@ -130,15 +154,19 @@ export const Products = () => {
               previousLabel={"Anterior"}
               nextLabel={"Siguiente"}
               breakLabel={"..."}
-              pageCount={Math.ceil(filteredProducts.length / productsPerPage)}
+              pageCount={Math.ceil(filteredProducts.length / productsPerPage || 1)}
               marginPagesDisplayed={marginPagesDisplayed}
               pageRangeDisplayed={4}
               onPageChange={handlePageClick}
               pageClassName="md:border-2 rounded-full"
               pageLinkClassName="text-gray-700 rounded-full md:w-10 md:h-10 flex items-center justify-center"
               containerClassName={"flex items-center space-x-2 md:space-x-2"}
-              activeClassName={"bg-pink-200 border-pink-200 md:border-2 rounded-full"}
-              previousClassName={"border-2 text-gray-700 rounded-full px-4 py-2"}
+              activeClassName={
+                "bg-pink-200 border-pink-200 md:border-2 rounded-full"
+              }
+              previousClassName={
+                "border-2 text-gray-700 rounded-full px-4 py-2"
+              }
               nextClassName={"border-2 text-gray-700 rounded-full px-4 py-2"}
               forcePage={currentPage}
             />
