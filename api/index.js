@@ -9,7 +9,9 @@ const userRoutes = require("./routes/products.router");
 const app = express();
 
 app.use(cors({
-    origin: 'https://focaccio-eco-frontend.vercel.app'
+    origin: 'https://focaccio-eco-frontend.vercel.app',
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   }));
 app.use(logger("dev"));
 app.use(express.json());
