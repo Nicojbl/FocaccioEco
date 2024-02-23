@@ -12,7 +12,7 @@ export const Ingresar = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/products/ingresar", {
+      const response = await fetch("focaccio.vercel.app/api/products/ingresar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
