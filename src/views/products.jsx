@@ -7,7 +7,7 @@ import {
   faMoneyBill1,
   faTruck,
   faLocationDot,
-  faMagnifyingGlass,
+  faMagnifyingGlass
 } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 
@@ -22,7 +22,7 @@ export const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://focaccio-eco-api.vercel.app/api/products");
+        const response = await fetch("http://localhost:5000/api/products");
         let data = await response.json();
         data = data.sort((a, b) => (a.title > b.title ? 1 : -1));
         setOriginalProducts(data);
@@ -141,10 +141,7 @@ export const Products = () => {
               className="px-2 py-2 border md:w-[300px] border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200"
             />
             <button className="bg-pink-200 w-11 ml-2 rounded-lg">
-              <FontAwesomeIcon
-                icon={faMagnifyingGlass}
-                style={{ color: "#ffffff" }}
-              />
+            <FontAwesomeIcon icon={faMagnifyingGlass} style={{color: "#ffffff",}} />
             </button>
           </div>
           <div className="grid md:grid-cols-3 lg:grid-cols-4 md:gap-3">
@@ -157,9 +154,7 @@ export const Products = () => {
               previousLabel={"Anterior"}
               nextLabel={"Siguiente"}
               breakLabel={"..."}
-              pageCount={Math.ceil(
-                filteredProducts.length / productsPerPage || 1
-              )}
+              pageCount={Math.ceil(filteredProducts.length / productsPerPage || 1)}
               marginPagesDisplayed={marginPagesDisplayed}
               pageRangeDisplayed={4}
               onPageChange={handlePageClick}

@@ -23,7 +23,7 @@ export const CardProduct = ({ product }) => {
       {product.stock > 0 ? (
         <div className="justify-between bg-white shadow-xl rounded-lg p-4 m-auto hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-[440px] flex flex-col w-[80%] md:w-full items-center">
           <img
-            src={`https://focaccio-eco-api.vercel.app/images/${product._id}.webp`}
+            src={`http://localhost:5000/images/${product._id}.jpg`}
             alt={product.title}
             className="mt-2 object-cover w-60 h-48 xl:w-full  border-b-2 border-pink-200 pointer-events-none"
           />
@@ -59,7 +59,7 @@ export const CardProduct = ({ product }) => {
       ) : (
         <div className="justify-between bg-white shadow-xl rounded-lg p-4 m-auto hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-[440px] flex flex-col w-[80%] md:w-full items-center">
           <img
-            src={`https://focaccio-eco-api.vercel.app/images/${product._id}.webp`}
+            src={`http://localhost:5000/images/${product._id}.jpg`}
             alt={product.title}
             className="mt-2 object-cover w-full h-48 border-b-2 border-pink-200"
           />

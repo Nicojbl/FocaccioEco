@@ -7,7 +7,7 @@ export const ListProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://focaccio-eco-api.vercel.app/api/products");
+        const response = await fetch("http://localhost:5000/api/products");
         let data = await response.json();
         data = data.sort((a, b) => (a.title > b.title ? 1 : -1));
         setProductos(data);
@@ -21,7 +21,7 @@ export const ListProducts = () => {
 
   const handleEliminar = async (id) => {
     try {
-      const response = await fetch(`https://focaccio-eco-api.vercel.app/api/products/${id}`, {
+      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {

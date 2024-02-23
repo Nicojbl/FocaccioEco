@@ -52,7 +52,7 @@ export const AddProducts = () => {
         );
       }
 
-      await fetch("https://focaccio-eco-api.vercel.app/api/products/addProduct", {
+      await fetch("http://localhost:5000/api/products/addProduct", {
         method: "POST",
         body: formData,
       });
