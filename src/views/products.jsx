@@ -22,7 +22,7 @@ export const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("focaccio.vercel.app/api/products");
+        const response = await fetch("https://focaccio-eco-api.vercel.app/api/products");
         let data = await response.json();
         data = data.sort((a, b) => (a.title > b.title ? 1 : -1));
         setOriginalProducts(data);

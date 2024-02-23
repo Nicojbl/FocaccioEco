@@ -16,7 +16,7 @@ export const UpdateProduct = () => {
     const obtenerProducto = async () => {
       try {
         const response = await fetch(
-          `focaccio.vercel.app/api/products/${id}`
+          `https://focaccio-eco-api.vercel.app/api/products/${id}`
         );
         const data = await response.json();
         setProduct(data);
@@ -41,7 +41,7 @@ export const UpdateProduct = () => {
         );
       }
       const response = await fetch(
-        `focaccio.vercel.app/api/products/updateproduct/${id}`,
+        `https://focaccio-eco-api.vercel.app/api/products/updateproduct/${id}`,
         {
           method: "PUT",
           headers: {

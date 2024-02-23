@@ -8,7 +8,7 @@ export const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("focaccio.vercel.app/api/products");
+        const response = await fetch("https://focaccio-eco-api.vercel.app/api/products");
         const data = await response.json();
         setProducts(data);
       } catch (error) {
