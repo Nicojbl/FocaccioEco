@@ -21,50 +21,61 @@ export const CardProduct = ({ product }) => {
   return (
     <>
       {product.stock > 0 ? (
-        <div className="justify-between bg-white shadow-xl rounded-lg p-4 m-auto hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-[440px] flex flex-col w-[80%] md:w-full items-center">
+        <div className="hover:shadow-x1 md:w-min-[270px] m-auto mt-10 flex h-[440px] w-[80%] transform flex-col items-center justify-between rounded-lg bg-white shadow-xl transition duration-200 hover:scale-105 md:w-[90%]">
+          {product.description === "novedades"
+            ? () => <p className="text-red-500">Novedad</p>
+            : null}
           <img
             src={`http://localhost:5000/images/${product._id}.jpg`}
             alt={product.title}
-            className="mt-2 object-cover w-60 h-48 xl:w-full  border-b-2 border-pink-200 pointer-events-none"
+            className="pointer-events-none mt-2 h-48 w-60 border-b-2 border-pink-200 object-cover pl-4 pr-4 pt-4"
           />
-          <h3 className="text-xl font-semibold text-center pointer-events-none">{product.title}</h3>
-          <p className="text-gray-500 pointer-events-none">{product.description}</p>
+          <h3 className="pointer-events-none text-center text-xl font-semibold">
+            {product.title}
+          </h3>
+          <p className="pointer-events-none text-gray-500">
+            {product.description}
+          </p>
           {product.pricePromo > 0 ? (
-            <div className="flex mb-3">
-              <p className="text-stone-500 font-bold line-through text-xs mr-4 pointer-events-none">
+            <div className="mb-3 flex">
+              <p className="pointer-events-none mr-4 text-xs font-bold text-stone-500 line-through">
                 ${product.price}
               </p>
-              <p className="text-2xl mt-auto pointer-events-none">$</p>
-              <p className="text-gray-700 mt-auto font-bold text-3xl pointer-events-none">
+              <p className="pointer-events-none mt-auto text-2xl">$</p>
+              <p className="pointer-events-none mt-auto text-3xl font-bold text-gray-700">
                 {product.pricePromo}
               </p>
-              <p className="pl-2 mt-auto pointer-events-none text-xs">IVA inc.</p>
+              <p className="pointer-events-none mt-auto pl-2 text-xs">
+                IVA inc.
+              </p>
             </div>
           ) : (
-            <div className="flex mb-3">
-              <p className="text-gray-700 font-bold text-3xl mt-auto pointer-events-none">
+            <div className="mb-3 flex">
+              <p className="pointer-events-none mt-auto text-3xl font-bold text-gray-700">
                 ${product.price}
               </p>
-              <p className="pl-2 mt-auto pointer-events-none text-xs">IVA inc.</p>
+              <p className="pointer-events-none mt-auto pl-2 text-xs">
+                IVA inc.
+              </p>
             </div>
           )}
           <ItemCount count={count} handleCount={handleCount} />
           <button
-            className="bg-pink-200 hover:bg-pink-300 transform hover:scale-110 transition duration-200 rounded-lg py-2 px-4 mt-4"
+            className="mb-4 mt-4 rounded-lg bg-pink-200 px-4 py-2 transition duration-200 hover:scale-110 hover:bg-pink-300"
             onClick={handleAddToCart}
           >
             Añadir al carrito
           </button>
         </div>
       ) : (
-        <div className="justify-between bg-white shadow-xl rounded-lg p-4 m-auto hover:shadow-x1 transition duration-200 transform hover:scale-105 mt-10 h-[440px] flex flex-col w-[80%] md:w-full items-center">
+        <div className="hover:shadow-x1 md:w-min-[270px] m-auto mt-10 flex h-[440px] w-[80%] transform flex-col items-center justify-between rounded-lg bg-white shadow-xl transition duration-200 hover:scale-105 md:w-[90%]">
           <img
             src={`http://localhost:5000/images/${product._id}.jpg`}
             alt={product.title}
-            className="mt-2 object-cover w-full h-48 border-b-2 border-pink-200"
+            className="mt-2 h-48 w-full border-b-2 border-pink-200 object-cover"
           />
           <h3 className="text-xl font-semibold">{product.title}</h3>
-          <p className="text-red-500 flex my-auto">Producto agotado</p>
+          <p className="my-auto flex text-red-500">Producto agotado</p>
         </div>
       )}
     </>

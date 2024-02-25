@@ -21,42 +21,43 @@ const App = () => {
   return (
     <BrowserRouter>
       <Layout>
-      <Routes>
-        <Route path="/ingresar" element={<Ingresar />} />
-        <Route
-          path="/listProducts"
-          element={
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              redirectTo="/ingresar"
-              component={<ListProducts />}
-            />
-          }
-        />
-        <Route
-          path="/updateproduct/:id"
-          element={
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              redirectTo="/ingresar"
-              component={<UpdateProduct />}
-            />
-          }
-        />
-        <Route
-          path="/addproduct"
-          element={
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              redirectTo="/ingresar"
-              component={<AddProducts />}
-            />
-          }
-        />
-        <Route path="/" element={<Home />} />
-        <Route path="/productos" element={<Products />} />
-        <Route path="/carrito" element={<CartView />} />
-      </Routes>
+        <Routes>
+          <Route path="/ingresar" element={<Ingresar />} />
+          <Route
+            path="/listProducts"
+            element={
+              <ProtectedRoute
+                isAuthenticated={isAuthenticated}
+                redirectTo="/ingresar"
+                component={<ListProducts />}
+              />
+            }
+          />
+          <Route
+            path="/updateproduct/:id"
+            element={
+              <ProtectedRoute
+                isAuthenticated={isAuthenticated}
+                redirectTo="/ingresar"
+                component={<UpdateProduct />}
+              />
+            }
+          />
+          <Route
+            path="/addproduct"
+            element={
+              <ProtectedRoute
+                isAuthenticated={isAuthenticated}
+                redirectTo="/ingresar"
+                component={<AddProducts />}
+              />
+            }
+          />
+          <Route path="/" element={<Home />} />
+          <Route path="/productos" element={<Products />} />
+          <Route path="/carrito" element={<CartView />} />
+        </Routes>
+        <img src="/images/nubes.webp" alt="nubes" className="md:hidden" />
       </Layout>
     </BrowserRouter>
   );

@@ -13,7 +13,7 @@ export const Header = () => {
     <header className="md:flex xl:mx-[200px] justify-between">
       <div className="flex justify-center items-center md:w-[30%] h-[140px] md:h-auto bg-pink-200 animate__animated animate__slideInDown">
         <div className="text-center">
-          <h1 className="namdhinggo-extrabold text-4xl">Pañalera Focaccio</h1>
+          <h1 className="nunito-text-black text-4xl">Pañalera Focaccio</h1>
           <p>Tenemos todo lo que buscas y más!</p>
         </div>
       </div>

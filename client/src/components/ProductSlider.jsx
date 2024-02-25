@@ -1,9 +1,9 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { CardProduct } from "./CardProduct";
-import { useInView } from "react-intersection-observer";
 
-export const ProductSlider = ({ products, title }) => {
+export const ProductSlider = ({ products }) => {
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -12,7 +12,7 @@ export const ProductSlider = ({ products, title }) => {
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2,
+      items: 4,
       slidesToSlide: 2,
     },
     mobile: {
@@ -32,20 +32,9 @@ export const ProductSlider = ({ products, title }) => {
     customTransition: "transform 700ms ease-in-out",
   };
 
-  const [ref, inView] = useInView({
-    threshold: 0.5,
-    triggerOnce: true,
-  });
-
   return (
-    <div ref={ref} className={`opacity-0  ${inView ? "opacity-100 animate__animated animate__backInLeft" : ""}`}>
-      <h3 className="text-lg font-semibold m-auto mt-5 border-b-2 w-[120px] text-center border-red-500">
-        {title}
-      </h3>
-      <Carousel
-        {...settings}
-        className="h-[600px]"
-      >
+    <div>
+      <Carousel {...settings} className="pb-10">
         {products.map((product) => (
           <div key={product._id} className="px-2">
             <CardProduct product={product} />

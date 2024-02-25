@@ -2,32 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-.namdhinggo-regular {
-  font-family: "Namdhinggo", serif;
+.nunito-text-regular {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
 
-.namdhinggo-medium {
-  font-family: "Namdhinggo", serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.namdhinggo-semibold {
-  font-family: "Namdhinggo", serif;
+.nunito-text-semibold {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
 }
 
-.namdhinggo-bold {
-  font-family: "Namdhinggo", serif;
+.nunito-text-bold {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
 }
 
-.namdhinggo-extrabold {
-  font-family: "Namdhinggo", serif;
-  font-weight: 800;
+.nunito-text-black {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
   font-style: normal;
 }

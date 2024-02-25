@@ -14,7 +14,7 @@ export const NavBar = () => {
 
   const totalItems = productsAdded.reduce(
     (total, product) => total + product.quantityAdded,
-    0
+    0,
   );
 
   const closeMobileMenu = () => {
@@ -22,51 +22,61 @@ export const NavBar = () => {
   };
 
   return (
-    <nav className="border-b-2 top-0 left-0 m-auto sticky z-50 xl:mx-[200px]">
-      <div className="md:flex flex justify-between bg-white py-4 md:px-10 px-7">
+    <nav className="sticky left-0 top-0 z-50 m-auto border-b-2 2xl:mx-[200px]">
+      <div className="flex justify-between bg-white px-7 py-4 md:flex md:px-10">
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
-            <img src="images/logo.jpg" alt="Logo" className="w-[90px] h-[50px] mr-1" />
+            <img
+              src=""
+              alt="Logo"
+              className="mr-1 h-[50px] w-[90px]"
+            />
           </Link>
         </div>
-        <ul className="hidden md:flex md:m-auto space-x-6">
-          <li className="text-gray-800 hover:text-gray-400 text-2xl duration-500">
+        <ul className="hidden space-x-6 md:m-auto md:flex">
+          <li className="text-xl text-gray-800 duration-500 hover:text-gray-400">
             <Link to="/" onClick={closeMobileMenu}>
               Inicio
             </Link>
           </li>
-          <li className="text-gray-800 hover:text-gray-400 text-2xl duration-500">
+          <li className="text-xl text-gray-800 duration-500 hover:text-gray-400">
             <Link to="/productos" onClick={closeMobileMenu}>
-              Productos
+              Catálogo
             </Link>
           </li>
-          <li className="text-gray-800 hover:text-gray-400 text-2xl duration-500">
+          <li className="text-xl text-gray-800 duration-500 hover:text-gray-400">
             <Link to="/" onClick={closeMobileMenu}>
               Contacto
             </Link>
           </li>
-          <li className="text-gray-800 hover:text-gray-400 text-2xl duration-500">
+          <li className="text-xl text-gray-800 duration-500 hover:text-gray-400">
             <Link to="/" onClick={closeMobileMenu}>
               Métodos de envío
             </Link>
           </li>
         </ul>
 
-        <div className="flex items-center relative ">
-          <Link to="/carrito" className={`group relative ${
-            totalItems > 0 &&
-            "animate__animated animate__pulse animate__infinite animate__faster"
-          }`}>
-            <FontAwesomeIcon className="w-10 h-5 mr-6 mt-4 md:h-8 md:w-10 text-pink-200" icon={faShoppingCart} />
+        <div className="relative flex items-center ">
+          <Link
+            to="/carrito"
+            className={`group relative ${
+              totalItems > 0 &&
+              "animate__animated animate__pulse animate__infinite animate__faster"
+            }`}
+          >
+            <FontAwesomeIcon
+              className="mr-6 mt-4 h-5 w-10 text-pink-200 md:h-7 md:w-7"
+              icon={faShoppingCart}
+            />
             {totalItems > 0 && (
-              <span className="absolute top-1 right-6 md:right-4 md:-top-0 bg-green-400 text-white rounded-full w-5 h-5 md:w-7 md:h-7 text-2sm md:text-lg flex items-center justify-center">
+              <span className="text-2sm absolute right-6 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-400 text-white md:right-2 md:top-2 md:h-5 md:w-5 md:text-lg">
                 {totalItems}
               </span>
             )}
           </Link>
           <button
-            className={`text-gray-600 hover:text-gray-800 focus:outline-none text-4xl ml-4 md:hidden transition-transform duration-400 ${
-              isMobileMenuOpen ? "transform rotate-90" : ""
+            className={`duration-400 ml-4 text-4xl text-gray-600 transition-transform hover:text-gray-800 focus:outline-none md:hidden ${
+              isMobileMenuOpen ? "rotate-90 transform" : ""
             }`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
@@ -75,27 +85,27 @@ export const NavBar = () => {
         </div>
       </div>
       <div
-        className={`transition-all duration-500 overflow-hidden ${
+        className={`overflow-hidden transition-all duration-500 ${
           isMobileMenuOpen ? "max-h-screen" : "max-h-0"
-        } md:hidden bg-white px-7`}
+        } bg-white px-7 md:hidden`}
       >
         <ul className="text-xl">
-          <li className="text-gray-800 hover:text-gray-400 mb-4">
+          <li className="mb-4 text-gray-800 hover:text-gray-400">
             <Link to="/" onClick={closeMobileMenu}>
               Inicio
             </Link>
           </li>
-          <li className="text-gray-800 hover:text-gray-400 mb-4">
+          <li className="mb-4 text-gray-800 hover:text-gray-400">
             <Link to="/productos" onClick={closeMobileMenu}>
               Productos
             </Link>
           </li>
-          <li className="text-gray-800 hover:text-gray-400 mb-4">
+          <li className="mb-4 text-gray-800 hover:text-gray-400">
             <Link to="/" onClick={closeMobileMenu}>
               Contacto
             </Link>
           </li>
-          <li className="text-gray-800 hover:text-gray-400 mb-4">
+          <li className="mb-4 text-gray-800 hover:text-gray-400">
             <Link to="/" onClick={closeMobileMenu}>
               Métodos de envío
             </Link>
