@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "~leaflet/dist/leaflet.css";
 
 .nunito-text-regular {
   font-family: "Nunito", sans-serif;
@@ -27,5 +28,12 @@
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
   font-weight: 900;
+  font-style: normal;
+}
+
+.caveat-semibold {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 600;
   font-style: normal;
 }

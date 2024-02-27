@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 export const CartView = () => {
-  const { productsAdded: items, removeItem } = useContext(CartContext);
+  const { productsAdded, removeItem, totalValue } = useContext(CartContext);
 
   const handleRemove = (itemId) => {
     removeItem(itemId);
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-8 bg-white shadow-md rounded-lg overflow-hidden">
-      <h2 className="text-3xl font-semibold bg-gray-800 text-white py-4 px-6">
+    <div className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-lg bg-white shadow-md">
+      <h2 className="bg-gray-800 px-6 py-4 text-3xl font-semibold text-white">
         Carrito de Compras
       </h2>
-      {items.length === 0 ? (
-        <div className="text-center py-8">
+      {productsAdded.length === 0 ? (
+        <div className="py-8 text-center">
           <p className="text-gray-600">No hay productos en el carrito.</p>
           <Link to="/" className="text-blue-500 hover:underline">
             Volver al inicio
@@ -24,7 +24,7 @@ export const CartView = () => {
       ) : (
         <div className="p-6">
           <ul>
-            {items.map((item) => (
+            {productsAdded.map((item) => (
               <li
                 key={item.item._id}
                 className="flex items-center justify-between border-b border-gray-200 py-4"
@@ -33,7 +33,7 @@ export const CartView = () => {
                   <img
                     src={`http://localhost:5000/images/${item.item._id}.jpg`}
                     alt={item.item.title}
-                    className="w-20 h-20 object-cover rounded"
+                    className="h-20 w-20 rounded object-cover"
                   />
                   <div className="ml-4">
                     <h3 className="text-lg font-semibold">{item.item.title}</h3>
@@ -62,15 +62,8 @@ export const CartView = () => {
             ))}
           </ul>
           <div className="mt-8">
-            <p className="text-lg font-semibold">
-              Total: $
-              {items.reduce(
-                (acc, item) =>
-                  acc + item.item.price * (item.quantityAdded || 1),
-                0
-              )}
-            </p>
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 mt-4 rounded-md transition duration-300 ease-in-out">
+            <p className="text-lg font-semibold">Total: $ {totalValue}</p>
+            <button className="mt-4 rounded-md bg-blue-500 px-6 py-3 text-white transition duration-300 ease-in-out hover:bg-blue-600">
               Siguiente
             </button>
           </div>

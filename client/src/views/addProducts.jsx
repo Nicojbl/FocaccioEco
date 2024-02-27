@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { ProductContext } from "../context/ProductsContext";
 
 export const AddProducts = () => {
+  const { addProduct } = useContext(ProductContext);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const [datos, setDatos] = useState({
     title: "",
     description: "",
@@ -18,7 +22,6 @@ export const AddProducts = () => {
     if (name === "img") {
       setImg(e.target.files[0]);
     } else if (name === "category") {
-      // Obtener el valor seleccionado de la categoría desde el evento
       const selectedCategory = e.target.value;
       setDatos({ ...datos, category: selectedCategory });
     } else {
@@ -28,7 +31,7 @@ export const AddProducts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsButtonDisabled(true);
     try {
       const formData = new FormData();
       formData.append("img", img);
@@ -48,23 +51,33 @@ export const AddProducts = () => {
         !datos.category
       ) {
         return alert(
-          "Por favor rellene todos los campos obligatorios, si el producto no tiene promoción déjelo en 0!"
+          "Por favor rellene todos los campos obligatorios, si el producto no tiene promoción déjelo en 0!",
         );
       }
 
-      await fetch("http://localhost:5000/api/products/addProduct", {
-        method: "POST",
-        body: formData,
-      });
-
-      console.log("Producto agregado correctamente!");
+      const response = await fetch(
+        "http://localhost:5000/api/products/addProduct",
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        },
+      );
+      setTimeout(() => {
+        setIsButtonDisabled(false);
+      }, 2000);
+      if (response.ok) {
+        const newProduct = await response.json();
+        addProduct(newProduct);
+        return alert("Producto agregado correctamente!");
+      }
     } catch (error) {
       console.error("Error al agregar el producto", error);
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex h-screen items-center justify-center">
       <div className="lg:m-[200px]">
         <p className="mb-4">
           ATENCIÓN! todos los espacios son requeridos MENOS el de precio
@@ -74,7 +87,7 @@ export const AddProducts = () => {
           precio y el valor promoción.
         </p>
         <form onSubmit={handleSubmit} className="w-[600px]">
-          <div className="flex flex-row mb-4">
+          <div className="mb-4 flex flex-row">
             <label className="w-1/4 border p-2">Imagen:</label>
             <input
               type="file"
@@ -86,7 +99,7 @@ export const AddProducts = () => {
               className="w-3/4 border p-2"
             />
           </div>
-          <div className="flex flex-row mb-4">
+          <div className="mb-4 flex flex-row">
             <label className="w-1/4 border p-2">Título:</label>
             <input
               type="text"
@@ -96,7 +109,7 @@ export const AddProducts = () => {
               className="w-3/4 border p-2"
             />
           </div>
-          <div className="flex flex-row mb-4">
+          <div className="mb-4 flex flex-row">
             <label className="w-1/4 border p-2">Descripción:</label>
             <input
               type="text"
@@ -106,7 +119,7 @@ export const AddProducts = () => {
               className="w-3/4 border p-2"
             />
           </div>
-          <div className="flex flex-row mb-4">
+          <div className="mb-4 flex flex-row">
             <label className="w-1/4 border p-2">Precio:</label>
             <input
               type="number"
@@ -116,7 +129,7 @@ export const AddProducts = () => {
               className="w-3/4 border p-2"
             />
           </div>
-          <div className="flex flex-row mb-4">
+          <div className="mb-4 flex flex-row">
             <label className="w-1/4 border p-2">Precio promoción:</label>
             <input
               type="number"
@@ -126,7 +139,7 @@ export const AddProducts = () => {
               className="w-3/4 border p-2"
             />
           </div>
-          <div className="flex flex-row mb-4">
+          <div className="mb-4 flex flex-row">
             <label className="w-1/4 border p-2">Stock:</label>
             <input
               type="number"
@@ -136,7 +149,7 @@ export const AddProducts = () => {
               className="w-3/4 border p-2"
             />
           </div>
-          <div className="flex flex-row mb-4">
+          <div className="mb-4 flex flex-row">
             <label className="w-1/4 border p-2">Categoría:</label>
             <select
               name="category"
@@ -166,14 +179,15 @@ export const AddProducts = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6 transition duration-300 ease-in-out"
+              className={`mt-6 rounded bg-blue-500 px-4 py-2 font-bold text-white transition duration-300 ease-in-out hover:bg-blue-700 ${isButtonDisabled && "cursor-progress"} `}
+              disabled={isButtonDisabled}
             >
               Agregar Producto
             </button>
           </div>
           <Link
             to="/listproducts"
-            className="bg-green-200 hover:bg-green-300 text-green-800 py-2 px-4 rounded transition-colors block w-[200px] text-center mt-[100px] mx-auto"
+            className="mx-auto mt-[100px] block w-[200px] rounded bg-green-200 px-4 py-2 text-center text-green-800 transition-colors hover:bg-green-300"
           >
             Lista de Productos
           </Link>

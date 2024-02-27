@@ -22,6 +22,12 @@ export const CartContextProvider = ({ children }) => {
     );
   };
 
+  const totalValue = productsAdded.reduce(
+    (total, product) =>
+      total + (product.item.pricePromo || product.item.price) * product.quantityAdded,
+    0
+  );
+
   const updateProduct = (updatedProducts) => {
     setProductsAdded(updatedProducts);
   };
@@ -45,6 +51,7 @@ export const CartContextProvider = ({ children }) => {
     isInCart,
     updateProduct,
     productsAdded,
+    totalValue,
   };
 
   return (

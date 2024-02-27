@@ -1,6 +1,6 @@
 import { useInView } from "react-intersection-observer";
 
-const InViewAnimationLeft = ({ children }) => {
+export const InViewAnimationLeft = ({ children }) => {
   const [ref, inView] = useInView({
     threshold: 0.5,
     triggerOnce: true,
@@ -18,7 +18,7 @@ const InViewAnimationLeft = ({ children }) => {
   );
 };
 
-const InViewAnimationRight = ({ children }) => {
+export const InViewAnimationRight = ({ children }) => {
     const [ref, inView] = useInView({
       threshold: 0.5,
       triggerOnce: true,
@@ -35,5 +35,3 @@ const InViewAnimationRight = ({ children }) => {
       </div>
     );
   };
-  
-export { InViewAnimationLeft, InViewAnimationRight };

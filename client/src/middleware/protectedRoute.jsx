@@ -1,7 +1,6 @@
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ isAuthenticated, redirectTo, component }) => {
+export const ProtectedRoute = ({ isAuthenticated, redirectTo, component }) => {
+  console.log(isAuthenticated);
     return isAuthenticated ? component : <Navigate to={redirectTo} replace />;
   };
-
-export default ProtectedRoute;

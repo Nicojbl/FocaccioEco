@@ -1,34 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout.jsx";
 import { AddProducts } from "./views/addProducts.jsx";
 import { Home } from "./views/home.jsx";
 import { ListProducts } from "./views/listProducts.jsx";
-import { Ingresar } from "./views/ingresar.jsx";
-import Cookies from "js-cookie";
-import ProtectedRoute from "./middleware/protectedRoute.jsx";
+import { Login } from "./views/login.jsx";
+import { ProtectedRoute } from "./middleware/protectedRoute.jsx";
 import dotenv from "dotenv";
 import { UpdateProduct } from "./views/updateProduct.jsx";
 import { CartView } from "./views/cartView.jsx";
+import Cookies from "js-cookie";
 import { Products } from "./views/products.jsx";
 
 dotenv.config();
 
 const App = () => {
-  const codigoAccesoCookie = Cookies.get("codigoAcceso");
-  const isAuthenticated = codigoAccesoCookie === process.env.REACT_APP_ADMIN;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
 
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/ingresar" element={<Ingresar />} />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/listProducts"
             element={
               <ProtectedRoute
                 isAuthenticated={isAuthenticated}
-                redirectTo="/ingresar"
+                redirectTo="/listProducts"
                 component={<ListProducts />}
               />
             }
@@ -38,7 +46,7 @@ const App = () => {
             element={
               <ProtectedRoute
                 isAuthenticated={isAuthenticated}
-                redirectTo="/ingresar"
+                redirectTo="/updateproduct/:id"
                 component={<UpdateProduct />}
               />
             }
@@ -48,7 +56,7 @@ const App = () => {
             element={
               <ProtectedRoute
                 isAuthenticated={isAuthenticated}
-                redirectTo="/ingresar"
+                redirectTo="/addproduct"
                 component={<AddProducts />}
               />
             }

@@ -1,49 +1,61 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../uploads/upload.js");
-const path = require("path")
+const path = require("path");
 const fs = require("fs");
+const jwt = require("jsonwebtoken");
+const verifyToken = require("../middleware/authMiddleware.js");
 require("dotenv").config();
 
 const productModel = require("../models/products.model.js");
 
-router.post("/ingresar", (req, res) => {
-  if (req.body.codigoAcceso === process.env.REACT_APP_ADMIN) {
-    res.cookie("codigoAcceso", process.env.REACT_APP_ADMIN, {
-      maxAge: 1900000,
+router.post("/login", (req, res) => {
+  const { codigoAcceso } = req.body;
+  if (codigoAcceso === process.env.REACT_APP_ADMIN) {
+    const token = jwt.sign({ name: "admin" }, process.env.JWT_SECRET, {
+      expiresIn: "2h",
+    });
+    res.cookie("token", token, {
+      maxAge: 2 * 60 * 60 * 1000,
       httpOnly: true,
-    });
-    res.send("Acceso permitido");
+      secure: true,
+    }).status(200).json(token);
   } else {
-    res.status(401).send("Código de acceso incorrecto");
+    res.status(401).json({ error: "Código incorrecto" });
   }
 });
 
-router.post("/addProduct", upload.single("img"), async (req, res) => {
-  try {
-    const { title, description, price, pricePromo, stock, category } = req.body;
+router.post(
+  "/addProduct",
+  verifyToken,
+  upload.single("img"),
+  async (req, res) => {
+    try {
+      const { title, description, price, pricePromo, stock, category } =
+        req.body;
 
-    const newProduct = await productModel.create({
-      title,
-      description,
-      price,
-      pricePromo,
-      stock,
-      category,
-      img: req.file.filename,
-    });
+      const newProduct = await productModel.create({
+        title,
+        description,
+        price,
+        pricePromo,
+        stock,
+        category,
+        img: req.file.filename,
+      });
 
-    const productId = newProduct._id.toString();
-    const imgPath = `public/images/${productId}.jpg`;
+      const productId = newProduct._id.toString();
+      const imgPath = `public/images/${productId}.jpg`;
 
-    fs.renameSync(req.file.path, imgPath);
+      fs.renameSync(req.file.path, imgPath);
 
-    res.status(201).json(newProduct);
-  } catch (error) {
-    console.error("Error al agregar el producto", error);
-    res.status(500).json({ error: "Error al agregar el producto" });
+      res.status(201).json(newProduct);
+    } catch (error) {
+      console.error("Error al agregar el producto", error);
+      res.status(500).json({ error: "Error al agregar el producto" });
+    }
   }
-});
+);
 
 router.get("/", async (req, res) => {
   try {
@@ -66,7 +78,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/updateproduct/:id", async (req, res) => {
+router.put("/updateproduct/:id", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description, price, pricePromo, stock, category } = req.body;
@@ -87,7 +99,7 @@ router.put("/updateproduct/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const productId = req.params.id;
     const deletedProduct = await productModel.findByIdAndDelete(productId);

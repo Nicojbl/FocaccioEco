@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
+import { ProductContext } from "../context/ProductsContext";
+import { HandleFunctions } from "../controllers/HandleController";
+
+const handleController = new HandleFunctions();
 
 export const UpdateProduct = () => {
   const { id } = useParams();
+  const { updateProduct } = useContext(ProductContext);
   const [product, setProduct] = useState({
     title: "",
     description: "",
@@ -16,7 +21,7 @@ export const UpdateProduct = () => {
     const obtenerProducto = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/products/${id}`
+          `http://localhost:5000/api/products/${id}`,
         );
         const data = await response.json();
         setProduct(data);
@@ -28,54 +33,40 @@ export const UpdateProduct = () => {
     obtenerProducto();
   }, [id]);
 
-  const handleUpdate = async () => {
-    try {
-      if (
-        !product.title ||
-        !product.description ||
-        !product.price ||
-        !product.category
-      ) {
-        return alert(
-          "Por favor rellene todos los campos obligatorios, si el producto no tiene promoción déjelo en 0!"
-        );
-      }
-      const response = await fetch(
-        `http://localhost:5000/api/products/updateproduct/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(product),
-        }
+  const handleUpdate = () => {
+    if (product.pricePromo === null || product.pricePromo === "") {
+      product.pricePromo = 0;
+    }
+    if (
+      !product.title ||
+      !product.price ||
+      product.pricePromo === null ||
+      !product.stock ||
+      !product.category ||
+      !product.description
+    ) {
+      return alert(
+        "Error al actualizar el producto, recuerde no dejar campos vacíos",
       );
-      if (response.ok) {
-        return alert("producto actualizado correctamente!");
-      } else {
-        return alert(
-          "Por favor rellene todos los campos obligatorios, si el producto no tiene promoción déjelo en 0!"
-        );
-      }
-    } catch (error) {
-      console.error("Error al actualizar el producto:", error);
+    } else {
+      handleController.handleUpdate(id, product, updateProduct);
     }
   };
 
   return (
     <div className="sm:m-[20px]">
-      <h1 className="text-xl font-bold mb-4 text-center w-full">
+      <h1 className="mb-4 w-full text-center text-xl font-bold">
         Actualizar Producto
       </h1>
       {product && (
-        <form className="w-[600px] mx-auto">
+        <form className="mx-auto w-[600px]">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="mb-2 block text-sm font-bold text-gray-700">
               Nombre
             </label>
             <input
               type="text"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
               value={product.title}
               onChange={(e) =>
                 setProduct({ ...product, title: e.target.value })
@@ -83,12 +74,12 @@ export const UpdateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="mb-2 block text-sm font-bold text-gray-700">
               Precio
             </label>
             <input
               type="text"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
               value={product.price}
               onChange={(e) =>
                 setProduct({ ...product, price: e.target.value })
@@ -96,12 +87,12 @@ export const UpdateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="mb-2 block text-sm font-bold text-gray-700">
               Precio promoción
             </label>
             <input
               type="text"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
               value={product.pricePromo}
               onChange={(e) =>
                 setProduct({ ...product, pricePromo: e.target.value })
@@ -109,12 +100,12 @@ export const UpdateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="mb-2 block text-sm font-bold text-gray-700">
               Stock
             </label>
             <input
               type="text"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
               value={product.stock}
               onChange={(e) =>
                 setProduct({ ...product, stock: e.target.value })
@@ -122,7 +113,7 @@ export const UpdateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="mb-2 block text-sm font-bold text-gray-700">
               Categoría
             </label>
             <select
@@ -130,7 +121,7 @@ export const UpdateProduct = () => {
               onChange={(e) =>
                 setProduct({ ...product, category: e.target.value })
               }
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
             >
               <option value="Pañales para niños">Pañales para niños</option>
               <option value="Pañales para adultos">Pañales para adultos</option>
@@ -151,11 +142,11 @@ export const UpdateProduct = () => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="mb-2 block text-sm font-bold text-gray-700">
               Descripción
             </label>
             <textarea
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
               value={product.description}
               onChange={(e) =>
                 setProduct({ ...product, description: e.target.value })
@@ -164,7 +155,7 @@ export const UpdateProduct = () => {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-center w-full"
+              className="focus:shadow-outline w-full rounded bg-blue-500 px-4 py-2 text-center font-bold text-white hover:bg-blue-700 focus:outline-none"
               type="button"
               onClick={handleUpdate}
             >
@@ -173,7 +164,7 @@ export const UpdateProduct = () => {
           </div>
           <Link
             to="/listproducts"
-            className="bg-green-200 mt-6 hover:bg-green-300 text-green-800 py-2 px-4 rounded transition-colors block w-[200px] text-center mx-[200px]"
+            className="mx-[200px] mb-20 mt-12 block w-[200px] rounded bg-green-200 px-4 py-2 text-center text-green-800 transition-colors hover:bg-green-300"
           >
             Lista de Productos
           </Link>

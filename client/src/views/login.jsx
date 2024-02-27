@@ -1,18 +1,13 @@
-// Ingresar.jsx
 import React, { useState } from "react";
 import Cookies from "js-cookie";
-import dotenv from "dotenv";
 
-dotenv.config();
-
-export const Ingresar = () => {
+export const Login = () => {
   const [codigoAcceso, setCodigoAcceso] = useState("");
-
   const handleAccessCodeSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/products/ingresar", {
+      const response = await fetch("http://localhost:5000/api/products/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,9 +16,9 @@ export const Ingresar = () => {
       });
 
       if (response.ok) {
-        console.log("Acceso permitido");
-        Cookies.set("codigoAcceso", process.env.REACT_APP_ADMIN);
-        window.location.href = "/listproducts";
+        const token = await response.json();
+        Cookies.set("token", token);
+        window.location.href = "/listProducts";
       } else {
         return alert("Codigo incorrecto, intente de nuevo!");
       }
@@ -33,25 +28,25 @@ export const Ingresar = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex h-screen items-center justify-center">
       <form
         onSubmit={handleAccessCodeSubmit}
-        className="w-96 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        className="mb-4 w-96 rounded bg-white px-8 pb-8 pt-6 shadow-md"
       >
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="mb-2 block text-sm font-bold text-gray-700">
             Ingresa el código de acceso:
           </label>
           <input
             type="password"
             value={codigoAcceso}
             onChange={(e) => setCodigoAcceso(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
           />
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6 w-full"
+          className="mt-6 w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
         >
           Ingresar
         </button>

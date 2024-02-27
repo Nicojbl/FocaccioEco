@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 export const NavBar = () => {
-  const { productsAdded } = useContext(CartContext);
+  const { productsAdded, totalValue } = useContext(CartContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const totalItems = productsAdded.reduce(
@@ -21,42 +21,41 @@ export const NavBar = () => {
     setIsMobileMenuOpen(false);
   };
 
+  const handleContacto = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsMobileMenuOpen(false);
+  };
   return (
     <nav className="sticky left-0 top-0 z-50 m-auto border-b-2 2xl:mx-[200px]">
-      <div className="flex justify-between bg-white px-7 py-4 md:flex md:px-10">
+      <div className="flex justify-between bg-zinc-50 px-7 py-4 md:flex md:px-10">
         <div className="flex items-center">
-          <Link to="/" className="flex items-center">
+          <Link to="/">
             <img
-              src=""
+              src="images/logo.webp"
               alt="Logo"
-              className="mr-1 h-[50px] w-[90px]"
+              className="mr-1 h-[25px] w-[100px]"
             />
           </Link>
         </div>
-        <ul className="hidden space-x-6 md:m-auto md:flex">
-          <li className="text-xl text-gray-800 duration-500 hover:text-gray-400">
-            <Link to="/" onClick={closeMobileMenu}>
-              Inicio
-            </Link>
+        <ul className="my-auto ml-auto mr-28 hidden space-x-6 md:flex">
+          <li className="nunito-text-regular text-xl text-gray-800 duration-500 hover:text-pink-200">
+            <Link to="/">Inicio</Link>
           </li>
-          <li className="text-xl text-gray-800 duration-500 hover:text-gray-400">
-            <Link to="/productos" onClick={closeMobileMenu}>
-              Catálogo
-            </Link>
+          <li className="nunito-text-regular text-xl text-gray-800 duration-500 hover:text-pink-200">
+            <Link to="/productos">Catálogo</Link>
           </li>
-          <li className="text-xl text-gray-800 duration-500 hover:text-gray-400">
-            <Link to="/" onClick={closeMobileMenu}>
+
+          <li className="nunito-text-regular text-xl text-gray-800 duration-500 hover:text-pink-200">
+            <Link to="/" onClick={handleContacto}>
               Contacto
             </Link>
           </li>
-          <li className="text-xl text-gray-800 duration-500 hover:text-gray-400">
-            <Link to="/" onClick={closeMobileMenu}>
-              Métodos de envío
-            </Link>
-          </li>
         </ul>
-
         <div className="relative flex items-center ">
+          <div className="mr-2 md:mr-6">
+            <p className="nunito-text-bold">Carrito</p>
+            <p className="nunito-text-regular text-xs text-green-400">Total: ${totalValue}</p>
+          </div>
           <Link
             to="/carrito"
             className={`group relative ${
@@ -87,7 +86,7 @@ export const NavBar = () => {
       <div
         className={`overflow-hidden transition-all duration-500 ${
           isMobileMenuOpen ? "max-h-screen" : "max-h-0"
-        } bg-white px-7 md:hidden`}
+        } bg-zinc-50 px-7 md:hidden`}
       >
         <ul className="text-xl">
           <li className="mb-4 text-gray-800 hover:text-gray-400">
@@ -101,13 +100,8 @@ export const NavBar = () => {
             </Link>
           </li>
           <li className="mb-4 text-gray-800 hover:text-gray-400">
-            <Link to="/" onClick={closeMobileMenu}>
+            <Link to="/" onClick={handleContacto}>
               Contacto
-            </Link>
-          </li>
-          <li className="mb-4 text-gray-800 hover:text-gray-400">
-            <Link to="/" onClick={closeMobileMenu}>
-              Métodos de envío
             </Link>
           </li>
         </ul>

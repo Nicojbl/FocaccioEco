@@ -1,97 +1,99 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ProductContext } from "../context/ProductsContext";
+import { HandleFunctions } from "../controllers/HandleController";
+
+const handleController = new HandleFunctions();
 
 export const ListProducts = () => {
-  const [productos, setProductos] = useState([]);
+  const { products, loading, setProducts } = useContext(ProductContext);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/products");
-        let data = await response.json();
-        data = data.sort((a, b) => (a.title > b.title ? 1 : -1));
-        setProductos(data);
-      } catch (error) {
-        console.error("Error al obtener los productos:", error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  const handleEliminar = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        setProductos(productos.filter((producto) => producto._id !== id));
-        console.log("Producto eliminado con ID:", id);
-      } else {
-        console.error("Error al eliminar el producto");
-      }
-    } catch (error) {
-      console.error("Error al eliminar el producto:", error);
-    }
-  };
+  const handleEliminar = (prodId) => {
+    handleController.handleEliminar(prodId, products, setProducts);
+  }
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="mb-16 flex items-center justify-center">
       <div className="w-auto">
-        <h1 className="text-xl font-bold mb-4 text-center">
+        <h1 className="my-4 text-center text-xl font-bold">
           Lista de Productos
         </h1>
         <Link
           to="/addproduct"
-          className="bg-green-200 mt-6 hover:bg-green-300 text-green-800 py-2 px-4 rounded transition-colors block w-[200px] text-center mx-auto mb-5"
+          className="mx-auto mb-16 mt-6 block w-[200px] rounded bg-green-200 px-4 py-2 text-center text-green-800 transition-colors hover:bg-green-300"
         >
           Agregar Productos
         </Link>
-        <div className="overflow-x-auto">
-          <table className="w-full sm:w-auto border-collapse">
-            <thead>
-              <tr>
-                <th className="border p-2">Nombre</th>
-                <th className="border p-2">Imagen</th>
-                <th className="border p-2">Precio</th>
-                <th className="border p-2">Precio promoción</th>
-                <th className="border p-2">Stock</th>
-                <th className="border p-2">Categoría</th>
-                <th className="border p-2">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {productos.map((producto) => (
-                <tr
-                  key={producto._id}
-                  className="hover:bg-gray-100 transition-colors"
-                >
-                  <td className="border p-2 text-center">{producto.title}</td>
-                  <td className="border p-2 text-center">{producto.img}</td>
-                  <td className="border p-2 text-center">{producto.price}</td>
-                  <td className="border p-2 text-center">{producto.pricePromo}</td>
-                  <td className="border p-2 text-center">{producto.stock}</td>
-                  <td className="border p-2 text-center">{producto.category}</td>
-                  <td className="border p-2 whitespace-nowrap space-x-2 flex justify-center">
-                    <Link
-                      to={`/updateproduct/${producto._id}`}
-                      className="bg-blue-200 hover:bg-blue-300 text-blue-800 py-2 px-4 rounded transition-colors"
+        {loading ? (
+          <div className="text-center">
+            <img src="/assets/loading.gif" alt="Cargando..." />
+          </div>
+        ) : (
+          <>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse sm:w-auto">
+                <thead>
+                  <tr>
+                    <th className="border p-2">Nombre</th>
+                    <th className="border p-2">Imagen</th>
+                    <th className="border p-2">Precio</th>
+                    <th className="border p-2">Precio promoción</th>
+                    <th className="border p-2">Stock</th>
+                    <th className="border p-2">Categoría</th>
+                    <th className="border p-2">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((producto) => (
+                    <tr
+                      key={producto._id}
+                      className="transition-colors hover:bg-gray-100"
                     >
-                      Editar
-                    </Link>
-                    <button
-                      onClick={() => handleEliminar(producto._id)}
-                      className="bg-red-200 hover:bg-red-300 text-red-800 py-2 px-4 rounded transition-colors"
-                    >
-                      Eliminar
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-       
+                      <td className="border p-2 text-center">
+                        {producto.title}
+                      </td>
+                      <td className="border p-2 text-center">
+                        <img
+                          src={`http://localhost:5000/images/${producto._id}.jpg`}
+                          alt={producto.title}
+                          className="pointer-events-none mt-2 w-32  border-pink-200 object-cover"
+                        />
+                      </td>
+                      <td className="border p-2 text-center">
+                        {producto.price}
+                      </td>
+                      <td className="border p-2 text-center">
+                        {producto.pricePromo}
+                      </td>
+                      <td className="border p-2 text-center">
+                        {producto.stock}
+                      </td>
+                      <td className="border p-2 text-center">
+                        {producto.category}
+                      </td>
+                      <td className="border p-2">
+                        <div className="flex flex-col gap-3 p-5">
+                          <Link
+                            to={`/updateproduct/${producto._id}`}
+                            className="rounded bg-blue-200 px-4 py-2 text-center text-blue-800 transition-colors hover:bg-blue-300"
+                          >
+                            Editar
+                          </Link>
+                          <button
+                            onClick={() => handleEliminar(producto._id)}
+                            className="rounded bg-red-200 px-4 py-2 text-center text-red-800 transition-colors hover:bg-red-300"
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

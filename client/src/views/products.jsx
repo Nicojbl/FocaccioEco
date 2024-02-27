@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { ProductContext } from "../context/ProductsContext";
 import { CardProduct } from "../components/CardProduct";
 import { Categories } from "../components/Categories";
 import { InfoCards } from "../components/InfoCards";
@@ -11,57 +12,42 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 import "../index.css";
 
 export const Products = () => {
-  const [originalProducts, setOriginalProducts] = useState([]);
+  const { products, loading } = useContext(ProductContext);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectCategory, setSelectCategory] = useState("Todos");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [productsPerPage] = useState(8);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/products");
-        let data = await response.json();
-        data = data.sort((a, b) => (a.title > b.title ? 1 : -1));
-        setOriginalProducts(data);
-        setFilteredProducts(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error al obtener los productos:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+    setCurrentPage(0);
+  }, [selectCategory]);
 
   useEffect(() => {
     if (selectCategory === "Todos") {
-      setFilteredProducts(originalProducts);
+      setFilteredProducts(products);
     } else {
-      const filtered = originalProducts.filter(
+      const filtered = products.filter(
         (product) => product.category === selectCategory,
       );
       setFilteredProducts(filtered);
     }
-    setCurrentPage(0);
-  }, [selectCategory, originalProducts]);
+  }, [selectCategory, products]);
 
   useEffect(() => {
-    const results = originalProducts.filter((product) =>
+    const results = products.filter((product) =>
       product.title.toLowerCase().includes(searchTerm.toLowerCase()),
     );
     setFilteredProducts(results);
-  }, [searchTerm, originalProducts]);
+  }, [searchTerm, products]);
 
   const handleCategory = (category) => {
     setSelectCategory(category);
-    setCurrentPage(0);
   };
 
   const handlePageClick = (data) => {
@@ -96,9 +82,16 @@ export const Products = () => {
 
   const marginPagesDisplayed = window.innerWidth < 768 ? 1 : 3;
 
+  const defaultIcon = L.icon({
+    iconUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+  });
+
   return (
-    <div className="md:mt-[50px] md:flex md:gap-3 2xl:mx-[200px]">
-      <div className="md:w-min-[300px] md:w-[350px]">
+    <div className="md:flex md:gap-3 md:pt-[50px] 2xl:mx-[200px]">
+      <div className="md:w-min-[400px] bg-zinc-50 p-5 md:w-[400px] md:bg-transparent">
         <Categories
           categories={categories}
           selectCategory={selectCategory}
@@ -137,19 +130,27 @@ export const Products = () => {
           />
         </div>
         <div>
-          <div className="mt-5">
-            <iframe
-              title="Mapa de ubicación"
-              src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d31160.805733596277!2d-55.96484974605771!3d-34.821631955535906!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzTCsDQ5JzIzLjYiUyA1NcKwNTcnMDguMyJX!5e0!3m2!1ses-419!2suy!4v1708838882774!5m2!1ses-419!2suy"
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="mb-9 h-[400px] w-full rounded-md border-2 border-gray-300"
-            ></iframe>
+          <div className="mt-5 border-2 rounded-md">
+            <MapContainer
+              center={[-34.82315029685729, -55.95229568766442]}
+              zoom={13}
+              style={{ height: "400px", width: "100%" }}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              <Marker
+                position={[-34.82312238832186, -55.95232691748029]}
+                icon={defaultIcon}
+              >
+                <Popup>Pañalera Focaccio</Popup>
+              </Marker>
+            </MapContainer>
           </div>
         </div>
       </div>
-      <div className="md:m-auto md:w-full">
+      <div className="mt-5 md:mx-auto">
         <InViewAnimationRight>
           <div>
             <h2 className="nunito-text-black mt-3 text-center text-2xl">
@@ -176,17 +177,19 @@ export const Products = () => {
           </button>
         </div>
         {loading ? (
-          <div className="mt-8 flex justify-center">
-            <img src="/assets/loading.gif" alt="Cargando..." />
+          <div className="md:h-[900px]">
+            <div className="mx-auto mt-7 flex justify-center">
+              <img src="/assets/loading.gif" alt="Cargando..." />
+            </div>
           </div>
         ) : (
-          <div className="grid md:grid-cols-3 lg:grid-cols-4">
+          <div className="mb-20 grid md:grid-cols-3 lg:grid-cols-4">
             {currentProducts.map((product) => (
               <CardProduct key={product._id} product={product} />
             ))}
           </div>
         )}
-        <div className="my-9 flex justify-center">
+        <div className="flex justify-center">
           <ReactPaginate
             previousLabel={"Anterior"}
             nextLabel={"Siguiente"}
@@ -240,6 +243,24 @@ export const Products = () => {
           title="Formas de pago"
           description="Aceptamos Efectivo, Crédito, Débito y Transferencia bancaria (a modificar)"
         />
+        <div className="mt-5">
+          <MapContainer
+            center={[-34.82315029685729, -55.95229568766442]}
+            zoom={13}
+            style={{ height: "400px", width: "100%" }}
+          >
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <Marker
+              position={[-34.82315029685729, -55.95229568766442]}
+              icon={defaultIcon}
+            >
+              <Popup>Pañalera Focaccio</Popup>
+            </Marker>
+          </MapContainer>
+        </div>
       </div>
     </div>
   );
