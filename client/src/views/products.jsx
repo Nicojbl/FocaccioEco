@@ -129,25 +129,23 @@ export const Products = () => {
             description="Aceptamos Efectivo, Crédito, Débito y Transferencia bancaria (a modificar)"
           />
         </div>
-        <div>
-          <div className="mt-5 border-2 rounded-md">
-            <MapContainer
-              center={[-34.82315029685729, -55.95229568766442]}
-              zoom={13}
-              style={{ height: "400px", width: "100%" }}
+        <div className="mt-5 hidden rounded-md border-2 md:block">
+          <MapContainer
+            center={[-34.82315029685729, -55.95229568766442]}
+            zoom={13}
+            style={{ height: "400px", width: "100%" }}
+          >
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <Marker
+              position={[-34.82315029685729, -55.95229568766442]}
+              icon={defaultIcon}
             >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              <Marker
-                position={[-34.82312238832186, -55.95232691748029]}
-                icon={defaultIcon}
-              >
-                <Popup>Pañalera Focaccio</Popup>
-              </Marker>
-            </MapContainer>
-          </div>
+              <Popup>Pañalera Focaccio</Popup>
+            </Marker>
+          </MapContainer>
         </div>
       </div>
       <div className="mt-5 md:mx-auto">
@@ -212,42 +210,44 @@ export const Products = () => {
           />
         </div>
       </div>
-      <div className="mx-4 mb-5 md:hidden">
-        <InfoCards
-          icon={
-            <FontAwesomeIcon
-              icon={faTruck}
-              className="my-auto mr-2 text-xl text-pink-400"
-            />
-          }
-          title="Envíos"
-          description="Envíos a todo el país (a modificar)"
-        />
-        <InfoCards
-          icon={
-            <FontAwesomeIcon
-              icon={faLocationDot}
-              className="my-auto mr-1 text-xl text-pink-400"
-            />
-          }
-          title="Pick Up"
-          description="Retira tu pedido al día siguiente en nuestros pick up (a modificar)"
-        />
-        <InfoCards
-          icon={
-            <FontAwesomeIcon
-              icon={faMoneyBill1}
-              className="my-auto mr-1 text-xl text-pink-400"
-            />
-          }
-          title="Formas de pago"
-          description="Aceptamos Efectivo, Crédito, Débito y Transferencia bancaria (a modificar)"
-        />
-        <div className="mt-5">
+      <div className="mx-4 mb-5">
+        <div className="md:hidden">
+          <InfoCards
+            icon={
+              <FontAwesomeIcon
+                icon={faTruck}
+                className="my-auto mr-2 text-xl text-pink-400"
+              />
+            }
+            title="Envíos"
+            description="Envíos a todo el país (a modificar)"
+          />
+          <InfoCards
+            icon={
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                className="my-auto mr-1 text-xl text-pink-400"
+              />
+            }
+            title="Pick Up"
+            description="Retira tu pedido al día siguiente en nuestros pick up (a modificar)"
+          />
+          <InfoCards
+            icon={
+              <FontAwesomeIcon
+                icon={faMoneyBill1}
+                className="my-auto mr-1 text-xl text-pink-400"
+              />
+            }
+            title="Formas de pago"
+            description="Aceptamos Efectivo, Crédito, Débito y Transferencia bancaria (a modificar)"
+          />
+        </div>
+        <div className="mt-5 rounded-md border-2 md:hidden">
           <MapContainer
             center={[-34.82315029685729, -55.95229568766442]}
             zoom={13}
-            style={{ height: "400px", width: "100%" }}
+            style={{ height: "200px", width: "100%" }}
           >
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

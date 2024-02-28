@@ -26,13 +26,13 @@ export const Home = () => {
         ) : (
           <>
             <InViewAnimationLeft>
-              <h3 className="m-auto w-fit border-b-2 border-pink-200 pt-5 text-center text-lg font-semibold">
+              <h3 className="m-auto w-fit  pt-20 text-center text-lg font-semibold md:text-3xl">
                 Dale un vistazo a nuestras novedades!
               </h3>
             </InViewAnimationLeft>
             <ProductSlider products={productosEnNovedad} />
             <InViewAnimationLeft>
-              <h3 className="m-auto mt-5 w-fit border-b-2 border-pink-200 text-center text-lg font-semibold">
+              <h3 className="m-auto mt-5 w-fit  text-center text-lg font-semibold md:text-3xl">
                 No te pierdas nuestras promociones!
               </h3>
             </InViewAnimationLeft>
@@ -40,15 +40,15 @@ export const Home = () => {
             <InViewAnimationLeft>
               <div className="pb-16">
                 <div className="mt-5 pb-4">
-                  <h3 className="nunito-text-semibold m-auto mb-3 w-fit border-b-2 border-pink-200 text-lg">
+                  <h3 className="nunito-text-semibold m-auto mb-3 w-fit  text-lg md:text-4xl">
                     ¿Quieres ver más?
                   </h3>
-                  <p className="m-auto w-fit">
+                  <p className="m-auto w-fit text-lg md:text-3xl">
                     Tienes todo nuestro catálogo para mirar!
                   </p>
                 </div>
                 <Link to="/productos">
-                  <button className="m-auto flex rounded-lg bg-pink-200 p-2 transition duration-200 hover:scale-110 hover:bg-pink-300">
+                  <button className="m-auto flex h-20 w-40 items-center justify-center rounded-lg bg-pink-200 p-2 text-2xl transition duration-200 hover:scale-110 hover:bg-pink-300">
                     Catálogo
                   </button>
                 </Link>

@@ -52,23 +52,25 @@ export const NavBar = () => {
           </li>
         </ul>
         <div className="relative flex items-center ">
-          <div className="mr-2 md:mr-6">
-            <p className="nunito-text-bold">Carrito</p>
-            <p className="nunito-text-regular text-xs text-green-400">Total: ${totalValue}</p>
+          <div className="mr-4 md:mr-6">
+            <p className=" md:text-sm">Carrito</p>
+            <p className="nunito-text-regular text-xs text-green-400 md:text-lg">
+              ${totalValue === 0 ? "0.00" : totalValue.toFixed()}
+            </p>
           </div>
           <Link
             to="/carrito"
-            className={`group relative ${
+            className={`group relative mr-3 md:mr-7 ${
               totalItems > 0 &&
               "animate__animated animate__pulse animate__infinite animate__faster"
             }`}
           >
             <FontAwesomeIcon
-              className="mr-6 mt-4 h-5 w-10 text-pink-200 md:h-7 md:w-7"
+              className="flex h-6 items-center justify-center text-pink-200 md:h-7 md:w-7"
               icon={faShoppingCart}
             />
             {totalItems > 0 && (
-              <span className="text-2sm absolute right-6 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-400 text-white md:right-2 md:top-2 md:h-5 md:w-5 md:text-lg">
+              <span className="text-2sm absolute -right-3 -top-3 flex h-5 w-5 items-center justify-center rounded-full bg-green-400 text-white md:-right-2 md:h-5 md:w-5 md:text-lg">
                 {totalItems}
               </span>
             )}

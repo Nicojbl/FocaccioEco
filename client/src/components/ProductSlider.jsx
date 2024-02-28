@@ -34,7 +34,7 @@ export const ProductSlider = ({ products }) => {
 
   return (
     <div>
-      <Carousel {...settings} className="pb-20">
+      <Carousel {...settings} className="py-10 md:py-20">
         {products.map((product) => (
           <div key={product._id} className="px-2">
             <CardProduct product={product} />

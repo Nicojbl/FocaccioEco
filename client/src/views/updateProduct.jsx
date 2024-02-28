@@ -129,7 +129,7 @@ export const UpdateProduct = () => {
               <option value="Artículos para el hogar">
                 Artículos para el hogar
               </option>
-              <option value="Artículos de Limpieza">
+              <option value="Artículos de limpieza">
                 Artículos de Limpieza
               </option>
               <option value="Artículos varios">Artículos varios</option>

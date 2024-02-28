@@ -8,13 +8,12 @@ const verifyToken = (req, res, next) => {
       .status(401)
       .json({ error: "No se proporcionó un token de autorización" });
   }
-
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    const isAdmin = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = isAdmin;
     next();
   } catch (error) {
-    return res.status(401).json({ error: "Token inválido" });
+    return res.status(401).json({ error: "Acceso denegado" });
   }
 };
 

@@ -15,7 +15,7 @@ export const Header = () => {
     { id: 4, image: "images/tena.webp" },
   ];
   return (
-    <header className="relative border-b-2 md:flex xl:mx-[200px]">
+    <header className="relative border-b-2 md:flex 2xl:mx-[200px]">
       <div className="absolute inset-0">
         <img
           src="images/bgheader.webp"

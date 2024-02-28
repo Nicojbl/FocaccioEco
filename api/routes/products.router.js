@@ -25,6 +25,16 @@ router.post("/login", (req, res) => {
   }
 });
 
+router.get("/isAdmin", verifyToken, (req, res) => {
+  const { name } = req.user;
+console.log(name);
+  if (name === "admin") {
+    res.status(200).json({ isAdmin: true });
+  } else {
+    res.status(403).json({ isAdmin: false });
+  }
+})
+
 router.post(
   "/addProduct",
   verifyToken,
