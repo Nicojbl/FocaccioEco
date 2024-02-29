@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Carousel } from "./Carousel";
 import "../index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,8 +6,12 @@ import {
   faFacebook,
   faSquareWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
+import { ContactoContext } from "../context/ContactoContext";
+import { InViewAnimationShake } from "./InViewAnimation";
 
 export const Header = () => {
+  const { contacto } = useContext(ContactoContext);
+
   let slides = [
     { id: 1, image: "images/bbtips.webp" },
     { id: 2, image: "images/indoprotect.webp" },
@@ -34,28 +38,73 @@ export const Header = () => {
             Tenemos todo lo que necesitas para tu bebé y para vos también.
           </h1>
           <div className="mt-7 flex justify-center">
-            <div className="grid grid-cols-1 gap-5">
-              <a href="https://facebook/pañalerafocaccio.com">
-                <div className="flex items-center">
-                  <FontAwesomeIcon
-                    icon={faFacebook}
-                    className="text-4xl text-pink-200"
-                  />
-                  <p className="nunito-text-regular ml-2">
-                    Contáctenos por Facebook!
-                  </p>
-                </div>
-              </a>
-              <a href="https://wa.me/95092008">
-                <div className="flex items-center">
-                  <FontAwesomeIcon
-                    icon={faSquareWhatsapp}
-                    className="ml-0.5 text-4xl text-pink-200"
-                  />
-                  <p className="nunito-text-regular ml-2">094561790</p>
-                </div>
-              </a>
-            </div>
+            {contacto === true ? (
+              <>
+                <InViewAnimationShake>
+                  <div className="grid grid-cols-1 gap-5">
+                    <a
+                      href="https://facebook/pañalerafocaccio.com"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <div className="flex items-center">
+                        <FontAwesomeIcon
+                          icon={faFacebook}
+                          className="text-4xl text-pink-200"
+                        />
+                        <p className="nunito-text-regular ml-2">
+                          Contáctenos por Facebook!
+                        </p>
+                      </div>
+                    </a>
+                    <a
+                      href="https://wa.me/95092008"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <div className="flex items-center">
+                        <FontAwesomeIcon
+                          icon={faSquareWhatsapp}
+                          className="ml-0.5 text-4xl text-pink-200"
+                        />
+                        <p className="nunito-text-regular ml-2">094561790</p>
+                      </div>
+                    </a>
+                  </div>
+                </InViewAnimationShake>
+              </>
+            ) : (
+              <div className="grid grid-cols-1 gap-5">
+                <a
+                  href="https://facebook/pañalerafocaccio.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div className="flex items-center">
+                    <FontAwesomeIcon
+                      icon={faFacebook}
+                      className="text-4xl text-pink-200"
+                    />
+                    <p className="nunito-text-regular ml-2">
+                      Contáctenos por Facebook!
+                    </p>
+                  </div>
+                </a>
+                <a
+                  href="https://wa.me/95092008"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div className="flex items-center">
+                    <FontAwesomeIcon
+                      icon={faSquareWhatsapp}
+                      className="ml-0.5 text-4xl text-pink-200"
+                    />
+                    <p className="nunito-text-regular ml-2">094561790</p>
+                  </div>
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>

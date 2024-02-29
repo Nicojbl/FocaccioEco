@@ -7,9 +7,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import { ContactoContext } from "../context/ContactoContext";
 
 export const NavBar = () => {
   const { productsAdded, totalValue } = useContext(CartContext);
+  const { contactoSelected } = useContext(ContactoContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const totalItems = productsAdded.reduce(
@@ -22,6 +24,7 @@ export const NavBar = () => {
   };
 
   const handleContacto = () => {
+    contactoSelected()
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIsMobileMenuOpen(false);
   };

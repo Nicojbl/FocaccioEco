@@ -1,32 +1,32 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-800 py-6 text-gray-300 2xl:mx-[200px]">
-      <div className="container mx-auto flex items-center justify-between">
+    <footer className="py-6 2xl:mx-[200px]">
+      <div className="mb-3 flex flex-col items-center border-b-2">
         <div className="flex flex-col">
-          <span className="text-xl font-bold">Mi Sitio Web</span>
-          <span>Dirección, Ciudad</span>
+          <span className="text-xl font-bold">
+            Aceptamos multiples tarjetas
+          </span>
           <span>Email: info@misitioweb.com</span>
         </div>
-        <div className="flex">
+      </div>
+      <div className="w-full">
+        <div className="m-auto w-fit">
+          <p className="nunito-text-semiRegular ml-5">
+            Focaccio Ecommerce.© 2024
+          </p>
           <a
-            href="instagram.com"
-            className="mx-2 transition-colors duration-300 hover:text-gray-500"
+            href="https://www.linkedin.com/in/nicolas-basso-aa3a791ab/"
+            target="_blank"
+            rel="noreferrer"
           >
-            Inicio
-          </a>
-          <a
-            href="facebook.com"
-            className="mx-2 transition-colors duration-300 hover:text-gray-500"
-          >
-            Servicios
-          </a>
-          <a
-            href="whatsapp.com"
-            className="mx-2 transition-colors duration-300 hover:text-gray-500"
-          >
-            Contacto
+            <p className="nunito-text-semiRegular">
+              <FontAwesomeIcon icon={faLinkedin} className="mr-2" />
+              Developed by Nicolas Basso.
+            </p>
           </a>
         </div>
       </div>

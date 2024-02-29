@@ -11,7 +11,6 @@ export const ProductContextProvider = ({ children }) => {
       try {
         const response = await fetch("http://localhost:5000/api/products");
         let data = await response.json();
-        data = data.sort((a, b) => (a.title > b.title ? 1 : -1));
         setProducts(data);
         setLoading(false);
       } catch (error) {
@@ -30,8 +29,8 @@ export const ProductContextProvider = ({ children }) => {
   const updateProduct = (updatedProduct) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
-        product._id === updatedProduct._id ? updatedProduct : product
-      )
+        product._id === updatedProduct._id ? updatedProduct : product,
+      ),
     );
   };
 

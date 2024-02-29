@@ -3,6 +3,13 @@
 @tailwind utilities;
 @import "~leaflet/dist/leaflet.css";
 
+
+.nunito-text-semiRegular {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
 .nunito-text-regular {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;

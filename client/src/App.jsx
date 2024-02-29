@@ -1,15 +1,15 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Layout } from "./components/Layout.jsx";
-import { AddProducts } from "./views/addProducts.jsx";
-import { Home } from "./views/home.jsx";
-import { ListProducts } from "./views/listProducts.jsx";
-import { Login } from "./views/login.jsx";
-import ProtectedRoute from "./middleware/protectedRoute.jsx";
+import { Layout } from "./components/Layout";
+import { AddProducts } from "./components/AddProducts";
+import { Home } from "./views/home";
+import { ListProducts } from "./components/ListProducts";
+import { Login } from "./views/login";
+import ProtectedRoute from "./middleware/protectedRoute";
 import dotenv from "dotenv";
-import { UpdateProduct } from "./views/updateProduct.jsx";
-import { CartView } from "./views/cartView.jsx";
-import { Products } from "./views/products.jsx";
+import { UpdateProduct } from "./components/UpdateProduct";
+import { Cart } from "./views/cart";
+import { Catalogo } from "./views/catalogo";
 
 dotenv.config();
 
@@ -38,8 +38,8 @@ const App = () => {
             }
           />
           <Route path="/" element={<Home />} />
-          <Route path="/productos" element={<Products />} />
-          <Route path="/carrito" element={<CartView />} />
+          <Route path="/productos" element={<Catalogo />} />
+          <Route path="/carrito" element={<Cart />} />
         </Routes>
       </Layout>
     </BrowserRouter>

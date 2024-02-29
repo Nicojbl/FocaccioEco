@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
-export const CartView = () => {
+export const Cart = () => {
   const { productsAdded, removeItem, totalValue } = useContext(CartContext);
 
   const handleRemove = (itemId) => {

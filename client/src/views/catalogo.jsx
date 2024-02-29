@@ -16,7 +16,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "../index.css";
 
-export const Products = () => {
+export const Catalogo = () => {
   const { products, loading } = useContext(ProductContext);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectCategory, setSelectCategory] = useState("Todos");
@@ -26,25 +26,25 @@ export const Products = () => {
 
   useEffect(() => {
     setCurrentPage(0);
-  }, [selectCategory]);
 
-  useEffect(() => {
-    if (selectCategory === "Todos") {
-      setFilteredProducts(products);
-    } else {
-      const filtered = products.filter(
+    const sortedProducts = products.slice().sort((a, b) => b.stock - a.stock);
+
+    let results = sortedProducts;
+
+    if (selectCategory !== "Todos") {
+      results = results.filter(
         (product) => product.category === selectCategory,
       );
-      setFilteredProducts(filtered);
     }
-  }, [selectCategory, products]);
 
-  useEffect(() => {
-    const results = products.filter((product) =>
-      product.title.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
+    if (searchTerm) {
+      results = results.filter((product) =>
+        product.title.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+    }
+
     setFilteredProducts(results);
-  }, [searchTerm, products]);
+  }, [selectCategory, searchTerm, products]);
 
   const handleCategory = (category) => {
     setSelectCategory(category);

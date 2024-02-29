@@ -8,9 +8,11 @@ const handleController = new HandleFunctions();
 export const ListProducts = () => {
   const { products, loading, setProducts } = useContext(ProductContext);
 
+  const prodSort = products.slice().sort((a, b) => a.title.localeCompare(b.title));
+
   const handleEliminar = (prodId) => {
     handleController.handleEliminar(prodId, products, setProducts);
-  }
+  };
 
   return (
     <div className="mb-16 flex items-center justify-center">
@@ -44,7 +46,7 @@ export const ListProducts = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {products.map((producto) => (
+                  {prodSort.map((producto) => (
                     <tr
                       key={producto._id}
                       className="transition-colors hover:bg-gray-100"

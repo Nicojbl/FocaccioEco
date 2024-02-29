@@ -20,8 +20,8 @@ export const Home = () => {
       <Header />
       <main className="m-auto mb-9 border-b-2 bg-zinc-50 md:mb-0 2xl:mx-[200px]">
         {loading ? (
-          <div className="text-center">
-            <img src="/assets/loading.gif" alt="Cargando..." />
+          <div className="">
+            <img src="/assets/loading.gif" alt="Cargando..." className="m-auto"/>
           </div>
         ) : (
           <>
@@ -33,7 +33,7 @@ export const Home = () => {
             <ProductSlider products={productosEnNovedad} />
             <InViewAnimationLeft>
               <h3 className="m-auto mt-5 w-fit  text-center text-lg font-semibold md:text-3xl">
-                No te pierdas nuestras promociones!
+                No te pierdas nuestras ofertas!
               </h3>
             </InViewAnimationLeft>
             <ProductSlider products={productosEnPromocion} />
@@ -48,7 +48,7 @@ export const Home = () => {
                   </p>
                 </div>
                 <Link to="/productos">
-                  <button className="m-auto flex h-20 w-40 items-center justify-center rounded-lg bg-pink-200 p-2 text-2xl transition duration-200 hover:scale-110 hover:bg-pink-300">
+                  <button className="m-auto flex h-15 w-30 items-center justify-center rounded-lg bg-pink-200 p-2 text-xl transition duration-200 hover:scale-110 hover:bg-pink-300">
                     Catálogo
                   </button>
                 </Link>
