@@ -29,12 +29,12 @@ export const NavBar = () => {
     setIsMobileMenuOpen(false);
   };
   return (
-    <nav className="sticky left-0 top-0 z-50 m-auto border-b-2 2xl:mx-[200px]">
+    <nav className="sticky left-0 top-0 z-50 m-auto border-b 2xl:mx-[200px]">
       <div className="flex justify-between bg-zinc-50 px-7 py-4 md:flex md:px-10">
         <div className="flex items-center">
           <Link to="/">
             <img
-              src="images/logo.webp"
+              src="/images/logo.webp"
               alt="Logo"
               className="mr-1 h-[25px] w-[100px]"
             />

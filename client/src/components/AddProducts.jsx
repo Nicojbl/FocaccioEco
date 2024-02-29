@@ -160,7 +160,6 @@ export const AddProducts = () => {
               <option>-- Seleccionar categoría --</option>
               <option value="Pañales para niños">Pañales para niños</option>
               <option value="Pañales para adultos">Pañales para adultos</option>
-              <hr />
               <option value="Artículos para el hogar">
                 Artículos para el hogar
               </option>
@@ -168,10 +167,8 @@ export const AddProducts = () => {
                 Artículos de Limpieza
               </option>
               <option value="Artículos varios">Artículos varios</option>
-              <hr />
               <option value="Tocador">Tocador</option>
               <option value="Toallas húmedas">Toallas húmedas</option>
-              <hr />
               <option value="Novedades">Novedades</option>
               <option value="Promoción">Promoción</option>
             </select>

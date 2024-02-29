@@ -5,7 +5,7 @@ import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 export const Footer = () => {
   return (
     <footer className="py-6 2xl:mx-[200px]">
-      <div className="mb-3 flex flex-col items-center border-b-2">
+      <div className="mb-3 flex flex-col items-center border-b">
         <div className="flex flex-col">
           <span className="text-xl font-bold">
             Aceptamos multiples tarjetas

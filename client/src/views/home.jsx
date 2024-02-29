@@ -18,7 +18,7 @@ export const Home = () => {
   return (
     <>
       <Header />
-      <main className="m-auto mb-9 border-b-2 bg-zinc-50 md:mb-0 2xl:mx-[200px]">
+      <main className="m-auto mb-9 border-y bg-zinc-50 md:mb-0 2xl:mx-[200px]">
         {loading ? (
           <div className="">
             <img src="/assets/loading.gif" alt="Cargando..." className="m-auto"/>

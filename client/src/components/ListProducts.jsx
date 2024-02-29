@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ProductContext } from "../context/ProductsContext";
 import { HandleFunctions } from "../controllers/HandleController";
@@ -7,11 +7,20 @@ const handleController = new HandleFunctions();
 
 export const ListProducts = () => {
   const { products, loading, setProducts } = useContext(ProductContext);
+  const [DeleteLoading, setDeleteLoading] = useState(null);
 
-  const prodSort = products.slice().sort((a, b) => a.title.localeCompare(b.title));
+  const prodSort = products
+    .slice()
+    .sort((a, b) => a.title.localeCompare(b.title));
 
   const handleEliminar = (prodId) => {
-    handleController.handleEliminar(prodId, products, setProducts);
+    setDeleteLoading(prodId);
+    handleController.handleEliminar(
+      prodId,
+      products,
+      setProducts,
+      setDeleteLoading,
+    );
   };
 
   return (
@@ -56,7 +65,7 @@ export const ListProducts = () => {
                       </td>
                       <td className="border p-2 text-center">
                         <img
-                          src={`http://localhost:5000/images/${producto._id}.jpg`}
+                          src={`http://localhost:5000/images/${producto._id}.webp`}
                           alt={producto.title}
                           className="pointer-events-none mt-2 w-32  border-pink-200 object-cover"
                         />
@@ -74,6 +83,13 @@ export const ListProducts = () => {
                         {producto.category}
                       </td>
                       <td className="border p-2">
+                        {DeleteLoading === producto._id ? (
+                          <img
+                            src="/assets/loading.gif"
+                            alt="Eliminando..."
+                            className="mx-auto w-[100px]"
+                          />
+                        ) : (
                         <div className="flex flex-col gap-3 p-5">
                           <Link
                             to={`/updateproduct/${producto._id}`}
@@ -88,6 +104,7 @@ export const ListProducts = () => {
                             Eliminar
                           </button>
                         </div>
+                        )}
                       </td>
                     </tr>
                   ))}

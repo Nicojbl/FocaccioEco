@@ -55,7 +55,7 @@ router.post(
       });
 
       const productId = newProduct._id.toString();
-      const imgPath = `public/images/${productId}.jpg`;
+      const imgPath = `public/images/${productId}.webp`;
 
       fs.renameSync(req.file.path, imgPath);
 
@@ -118,7 +118,7 @@ router.delete("/:id", verifyToken, async (req, res) => {
     }
 
     const imgDirectory = path.resolve(__dirname, "../public/images");
-    const imgPath = path.join(imgDirectory, `${productId}.jpg`);
+    const imgPath = path.join(imgDirectory, `${productId}.webp`);
 
     fs.unlinkSync(imgPath);
 

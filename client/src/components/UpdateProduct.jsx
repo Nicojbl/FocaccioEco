@@ -16,6 +16,7 @@ export const UpdateProduct = () => {
     stock: 0,
     category: "",
   });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const obtenerProducto = async () => {
@@ -49,7 +50,8 @@ export const UpdateProduct = () => {
         "Error al actualizar el producto, recuerde no dejar campos vacíos",
       );
     } else {
-      handleController.handleUpdate(id, product, updateProduct);
+      setLoading(true);
+      handleController.handleUpdate(id, product, updateProduct, setLoading);
     }
   };
 
@@ -125,7 +127,6 @@ export const UpdateProduct = () => {
             >
               <option value="Pañales para niños">Pañales para niños</option>
               <option value="Pañales para adultos">Pañales para adultos</option>
-              <hr />
               <option value="Artículos para el hogar">
                 Artículos para el hogar
               </option>
@@ -133,10 +134,8 @@ export const UpdateProduct = () => {
                 Artículos de Limpieza
               </option>
               <option value="Artículos varios">Artículos varios</option>
-              <hr />
               <option value="Tocador">Tocador</option>
               <option value="Toallas húmedas">Toallas húmedas</option>
-              <hr />
               <option value="Novedades">Novedades</option>
               <option value="Promoción">Promoción</option>
             </select>
@@ -153,15 +152,24 @@ export const UpdateProduct = () => {
               }
             />
           </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="focus:shadow-outline w-full rounded bg-blue-500 px-4 py-2 text-center font-bold text-white hover:bg-blue-700 focus:outline-none"
-              type="button"
-              onClick={handleUpdate}
-            >
-              Actualizar
-            </button>
-          </div>
+          {loading ? (
+            <img
+              src="/assets/loading.gif"
+              alt="cargando"
+              className="m-auto w-[100px]"
+            />
+          ) : (
+            <div className="flex items-center justify-between">
+              <button
+                className="focus:shadow-outline w-full rounded bg-blue-500 px-4 py-2 text-center font-bold text-white hover:bg-blue-700 focus:outline-none"
+                type="button"
+                onClick={handleUpdate}
+              >
+                Actualizar
+              </button>
+            </div>
+          )}
+
           <Link
             to="/listproducts"
             className="mx-[200px] mb-20 mt-12 block w-[200px] rounded bg-green-200 px-4 py-2 text-center text-green-800 transition-colors hover:bg-green-300"

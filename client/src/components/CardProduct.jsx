@@ -22,13 +22,13 @@ export const CardProduct = ({ product }) => {
     <>
       {product.stock > 0 ? (
         <div className="hover:shadow-x1 md:w-min-[270px] m-auto mt-10 flex h-[440px] w-[80%] transform flex-col items-center justify-between rounded-lg bg-white shadow-xl shadow-pink-100 transition duration-200 hover:scale-105 md:w-[90%]">
-          {product.description === "novedades"
-            ? () => <p className="text-red-500">Novedad</p>
-            : null}
+          {(product.category === "Novedades") && (
+            <span>New</span>
+          )}
           <img
-            src={`http://localhost:5000/images/${product._id}.jpg`}
+            src={`http://localhost:5000/images/${product._id}.webp`}
             alt={product.title}
-            className="pointer-events-none mt-2 h-48 w-60 border-b-2 border-pink-200 object-cover pl-4 pr-4 pt-4"
+            className="pointer-events-none mt-2 h-48 w-60 border-b-2 border-pink-200 object-cover"
           />
           <h3 className="pointer-events-none text-center text-xl font-semibold">
             {product.title}
@@ -70,7 +70,7 @@ export const CardProduct = ({ product }) => {
       ) : (
         <div className="hover:shadow-x1 md:w-min-[270px] m-auto mt-10 flex h-[440px] w-[80%] transform flex-col items-center justify-between rounded-lg bg-white shadow-xl shadow-pink-100 transition duration-200 hover:scale-105 md:w-[90%]">
           <img
-            src={`http://localhost:5000/images/${product._id}.jpg`}
+            src={`http://localhost:5000/images/${product._id}.webp`}
             alt={product.title}
             className="mt-2 h-48 w-full border-b-2 border-pink-200 object-cover"
           />

@@ -91,7 +91,7 @@ export const Catalogo = () => {
 
   return (
     <div className="md:flex md:gap-3 md:pt-[50px] 2xl:mx-[200px]">
-      <div className="md:w-min-[400px] bg-zinc-50 p-5 md:w-[400px] md:bg-transparent">
+      <div className="md:w-min-[400px] border-b-2 bg-zinc-50 p-5 md:w-[400px] md:border-b-0 md:bg-transparent">
         <Categories
           categories={categories}
           selectCategory={selectCategory}
@@ -180,43 +180,53 @@ export const Catalogo = () => {
               <img src="/assets/loading.gif" alt="Cargando..." />
             </div>
           </div>
+        ) : currentProducts.length > 0 ? (
+          <>
+            <div className="mb-20 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {currentProducts.map((product) => (
+                <CardProduct key={product._id} product={product} />
+              ))}
+            </div>
+            <div className="flex justify-center mb-14">
+              <ReactPaginate
+                previousLabel={"Anterior"}
+                nextLabel={"Siguiente"}
+                breakLabel={"..."}
+                pageCount={Math.ceil(
+                  filteredProducts.length / productsPerPage || 1,
+                )}
+                marginPagesDisplayed={marginPagesDisplayed}
+                pageRangeDisplayed={4}
+                onPageChange={handlePageClick}
+                pageClassName="md:border-2 rounded-full"
+                pageLinkClassName="text-gray-700 rounded-full md:w-10 md:h-10 flex items-center justify-center"
+                containerClassName={"flex items-center space-x-2 md:space-x-2"}
+                activeClassName={
+                  "bg-pink-200 border-pink-200 md:border-2 rounded-full"
+                }
+                previousClassName={
+                  "border-2 text-gray-700 rounded-full px-4 py-2"
+                }
+                nextClassName={"border-2 text-gray-700 rounded-full px-4 py-2"}
+                forcePage={currentPage}
+              />
+            </div>
+          </>
         ) : (
-          <div className="mb-20 grid md:grid-cols-3 lg:grid-cols-4">
-            {currentProducts.map((product) => (
-              <CardProduct key={product._id} product={product} />
-            ))}
+          <div className="mx-auto mb-7 mt-7 flex items-center justify-center md:h-[300px]">
+            <p className="text-center text-2xl text-zinc-200">
+              Lo sentimos no contamos con el producto que buscas
+            </p>
           </div>
         )}
-        <div className="flex justify-center">
-          <ReactPaginate
-            previousLabel={"Anterior"}
-            nextLabel={"Siguiente"}
-            breakLabel={"..."}
-            pageCount={Math.ceil(
-              filteredProducts.length / productsPerPage || 1,
-            )}
-            marginPagesDisplayed={marginPagesDisplayed}
-            pageRangeDisplayed={4}
-            onPageChange={handlePageClick}
-            pageClassName="md:border-2 rounded-full"
-            pageLinkClassName="text-gray-700 rounded-full md:w-10 md:h-10 flex items-center justify-center"
-            containerClassName={"flex items-center space-x-2 md:space-x-2"}
-            activeClassName={
-              "bg-pink-200 border-pink-200 md:border-2 rounded-full"
-            }
-            previousClassName={"border-2 text-gray-700 rounded-full px-4 py-2"}
-            nextClassName={"border-2 text-gray-700 rounded-full px-4 py-2"}
-            forcePage={currentPage}
-          />
-        </div>
       </div>
-      <div className="mx-4 mb-5">
-        <div className="md:hidden">
+      <div className="border-b-2 border-t-2 bg-zinc-50 pb-4">
+        <div className="mx-4 mb-5 md:hidden">
           <InfoCards
             icon={
               <FontAwesomeIcon
                 icon={faTruck}
-                className="my-auto mr-2 text-xl text-pink-400"
+                className="my-auto mr-2 text-xl text-pink-400 "
               />
             }
             title="Envíos"
@@ -243,7 +253,7 @@ export const Catalogo = () => {
             description="Aceptamos Efectivo, Crédito, Débito y Transferencia bancaria (a modificar)"
           />
         </div>
-        <div className="mt-5 rounded-md border-2 md:hidden">
+        <div className="mx-4 mt-5 rounded-md border-2 md:hidden">
           <MapContainer
             center={[-34.82315029685729, -55.95229568766442]}
             zoom={13}

@@ -7,6 +7,7 @@ export const Categories = ({ categories, selectCategory, handleCategory }) => {
 
   const img = [
     { id: "Artículos varios", image: "images/varios.png" },
+    { id: "Todos", image: "images/todos.webp" },
     { id: "Tocador", image: "images/tocador.png" },
     { id: "Toallas húmedas", image: "images/toallashumedas.png" },
     { id: "Promoción", image: "images/promociones.png" },
@@ -23,16 +24,16 @@ export const Categories = ({ categories, selectCategory, handleCategory }) => {
         <h2 className="nunito-text-bold mb-4 text-lg text-gray-800">
           Categorías
         </h2>
-        <ul className="">
+        <ul>
           {categories.map((category) => {
             const image = img.find((img) => img.id === category);
             return (
               <div key={category} className="items-center">
                 <li
-                  className={`cursor-pointer border-b pb-1 mt-1 items-center transition-colors flex hover:border-pink-200 ${
+                  className={`mt-1 flex cursor-pointer items-center  pb-1 transition-transform duration-300 ease-in-out transform ${
                     selectCategory === category
-                      ? "font-semibold text-pink-200 "
-                      : "text-gray-600"
+                      ? "font-semibold text-pink-200 translate-x-2"
+                      : "text-gray-600 translate-x-0"
                   }`}
                   onClick={() => {
                     handleCategory(category);
@@ -42,10 +43,10 @@ export const Categories = ({ categories, selectCategory, handleCategory }) => {
                     <img
                       src={image.image}
                       alt={image.image}
-                      className="w-7 mr-3 "
+                      className="mr-3 w-7 "
                     />
                   )}
-                  {category}
+                  <div className="border-b transition-colors hover:border-pink-200 w-full">{category}</div>
                 </li>
               </div>
             );
@@ -73,7 +74,7 @@ export const Categories = ({ categories, selectCategory, handleCategory }) => {
           return (
             <li
               key={category}
-              className={`cursor-pointer flex items-center ${
+              className={`flex cursor-pointer items-center ${
                 selectCategory === category
                   ? "font-semibold text-pink-200"
                   : "text-gray-600"
@@ -84,11 +85,7 @@ export const Categories = ({ categories, selectCategory, handleCategory }) => {
               }}
             >
               {image && (
-                <img
-                  src={image.image}
-                  alt={image.image}
-                  className="w-7 mr-3"
-                />
+                <img src={image.image} alt={image.image} className="mr-3 w-7" />
               )}
               {category}
             </li>

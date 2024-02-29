@@ -1,5 +1,5 @@
 export class HandleFunctions {
-  async handleUpdate(id, product, updateProduct) {
+  async handleUpdate(id, product, updateProduct, setLoading) {
     try {
       const response = await fetch(
         `http://localhost:5000/api/products/updateproduct/${id}`,
@@ -14,6 +14,7 @@ export class HandleFunctions {
       );
       if (response.ok) {
         updateProduct(product);
+        setLoading(false);
         return alert("Producto actualizado con éxito");
       }
     } catch (error) {
@@ -21,7 +22,7 @@ export class HandleFunctions {
     }
   }
 
-  async handleEliminar(id, products, setProducts) {
+  async handleEliminar(id, products, setProducts, setDeleteLoading) {
     try {
       const response = await fetch(`http://localhost:5000/api/products/${id}`, {
         method: "DELETE",
@@ -32,6 +33,7 @@ export class HandleFunctions {
           (producto) => producto._id !== id,
         );
         setProducts(updatedProducts);
+        setDeleteLoading(null);
         console.log("Producto eliminado con ID:", id);
       } else {
         console.error("Error al eliminar el producto");
