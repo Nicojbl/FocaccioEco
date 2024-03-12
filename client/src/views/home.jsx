@@ -21,7 +21,11 @@ export const Home = () => {
       <main className="m-auto mb-9 border-y bg-zinc-50 md:mb-0 2xl:mx-[200px]">
         {loading ? (
           <div className="">
-            <img src="/assets/loading.gif" alt="Cargando..." className="m-auto"/>
+            <img
+              src="/assets/loading.gif"
+              alt="Cargando..."
+              className="m-auto"
+            />
           </div>
         ) : (
           <>
@@ -48,7 +52,7 @@ export const Home = () => {
                   </p>
                 </div>
                 <Link to="/productos">
-                  <button className="m-auto flex h-15 w-30 items-center justify-center rounded-lg bg-pink-200 p-2 text-xl transition duration-200 hover:scale-110 hover:bg-pink-300">
+                  <button className="h-15 w-30 m-auto flex items-center justify-center rounded-lg bg-pink-200 p-2 text-xl transition duration-200 hover:scale-110 hover:bg-pink-300">
                     Catálogo
                   </button>
                 </Link>

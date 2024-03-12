@@ -3,6 +3,9 @@
 @tailwind utilities;
 @import "~leaflet/dist/leaflet.css";
 
+.z-index {
+  z-index: 3000;
+}
 
 .nunito-text-semiRegular {
   font-family: "Nunito", sans-serif;

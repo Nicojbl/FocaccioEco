@@ -22,9 +22,6 @@ export const CardProduct = ({ product }) => {
     <>
       {product.stock > 0 ? (
         <div className="hover:shadow-x1 md:w-min-[270px] m-auto mt-10 flex h-[440px] w-[80%] transform flex-col items-center justify-between rounded-lg bg-white shadow-xl shadow-pink-100 transition duration-200 hover:scale-105 md:w-[90%]">
-          {(product.category === "Novedades") && (
-            <span>New</span>
-          )}
           <img
             src={`http://localhost:5000/images/${product._id}.webp`}
             alt={product.title}

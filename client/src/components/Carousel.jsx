@@ -8,7 +8,7 @@ export const Carousel = ({ slides }) => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentSlide((prevSlide) =>
-        prevSlide === slides.length - 1 ? 0 : prevSlide + 1
+        prevSlide === slides.length - 1 ? 0 : prevSlide + 1,
       );
     }, 10000);
 
@@ -30,11 +30,11 @@ export const Carousel = ({ slides }) => {
   const handleTouchEnd = () => {
     if (touchStartX - touchEndX > 50) {
       setCurrentSlide((prevSlide) =>
-        prevSlide === slides.length - 1 ? 0 : prevSlide + 1
+        prevSlide === slides.length - 1 ? 0 : prevSlide + 1,
       );
     } else if (touchEndX - touchStartX > 50) {
       setCurrentSlide((prevSlide) =>
-        prevSlide === 0 ? slides.length - 1 : prevSlide - 1
+        prevSlide === 0 ? slides.length - 1 : prevSlide - 1,
       );
     }
     setTouchStartX(0);
@@ -43,34 +43,34 @@ export const Carousel = ({ slides }) => {
 
   return (
     <div
-      className="overflow-hidden relative"
+      className="relative overflow-hidden"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="flex justify-center md:max-h-[600px]">
-        {slides.map((slide, index) => (
-          <img
-            key={slide.id}
-            src={slide.image}
-            alt={slide.image}
-            style={{ display: index === currentSlide ? "block" : "none" }}
-            className="xl:w-[700px] xl:h-[400px]"
-          />
-        ))}
+      <div className="w-max-[680px] 2xl:w-[700px]">
+        <div className="flex justify-center rounded-xl border bg-white p-2 md:h-[380px] ">
+          {slides.map((slide, index) => (
+            <img
+              key={slide.id}
+              src={slide.image}
+              alt={slide.image}
+              style={{ display: index === currentSlide ? "block" : "none" }}
+            />
+          ))}
+        </div>
+        <div className="mb-9 mt-4 flex justify-center md:mb-0">
+          {slides.map((slide, index) => (
+            <span
+              key={index}
+              onClick={() => handleDotClick(index)}
+              className={`mx-2 h-2 w-2 cursor-pointer rounded-full ${
+                index === currentSlide ? "bg-black" : "bg-gray-300"
+              }`}
+            />
+          ))}
+        </div>
       </div>
-      <div className="flex justify-center mt-4">
-        {slides.map((slide, index) => (
-          <span
-            key={index}
-            onClick={() => handleDotClick(index)}
-            className={`h-2 w-2 mx-2 rounded-full cursor-pointer ${
-              index === currentSlide ? "bg-black" : "bg-gray-300"
-            }`}
-          />
-        ))}
-      </div>
-      <button></button>
     </div>
   );
 };

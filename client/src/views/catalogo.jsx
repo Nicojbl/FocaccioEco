@@ -4,7 +4,6 @@ import { CardProduct } from "../components/CardProduct";
 import { Categories } from "../components/Categories";
 import { InfoCards } from "../components/InfoCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { InViewAnimationRight } from "../components/InViewAnimation";
 import {
   faMoneyBill1,
   faTruck,
@@ -149,16 +148,14 @@ export const Catalogo = () => {
         </div>
       </div>
       <div className="mt-5 md:mx-auto">
-        <InViewAnimationRight>
-          <div>
-            <h2 className="nunito-text-black mt-3 text-center text-2xl">
-              Catálogo
-            </h2>
-            <p className="nunito-text-regular text-center">
-              aquí encontraras todo lo que buscas y mas!
-            </p>
-          </div>
-        </InViewAnimationRight>
+        <div>
+          <h2 className="nunito-text-black mt-3 text-center text-2xl">
+            Catálogo
+          </h2>
+          <p className="nunito-text-regular text-center">
+            aquí encontraras todo lo que buscas y mas!
+          </p>
+        </div>
         <div className="mt-5 flex justify-center">
           <input
             type="text"
@@ -187,7 +184,7 @@ export const Catalogo = () => {
                 <CardProduct key={product._id} product={product} />
               ))}
             </div>
-            <div className="flex justify-center mb-14">
+            <div className="mb-14 flex justify-center">
               <ReactPaginate
                 previousLabel={"Anterior"}
                 nextLabel={"Siguiente"}

@@ -8,6 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { ContactoContext } from "../context/ContactoContext";
+import "../index.css";
 
 export const NavBar = () => {
   const { productsAdded, totalValue } = useContext(CartContext);
@@ -24,12 +25,12 @@ export const NavBar = () => {
   };
 
   const handleContacto = () => {
-    contactoSelected()
+    contactoSelected();
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIsMobileMenuOpen(false);
   };
   return (
-    <nav className="sticky left-0 top-0 z-50 m-auto border-b 2xl:mx-[200px]">
+    <nav className="z-index sticky left-0 top-0 m-auto border-b 2xl:mx-[200px]">
       <div className="flex justify-between bg-zinc-50 px-7 py-4 md:flex md:px-10">
         <div className="flex items-center">
           <Link to="/">

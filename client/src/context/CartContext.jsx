@@ -16,32 +16,66 @@ export const CartContextProvider = ({ children }) => {
                   ...product,
                   quantityAdded: (product.quantityAdded || 0) + quantity,
                 }
-              : product
+              : product,
           )
-        : [...prevState, { item, quantityAdded: quantity }]
+        : [...prevState, { item, quantityAdded: quantity }],
     );
   };
 
   const totalValue = productsAdded.reduce(
     (total, product) =>
-      total + (product.item.pricePromo || product.item.price) * product.quantityAdded,
-    0
+      total +
+      (product.item.pricePromo || product.item.price) * product.quantityAdded,
+    0,
   );
 
   const updateProduct = (updatedProducts) => {
     setProductsAdded(updatedProducts);
   };
 
-  const removeItem = (itemId) => {
-    const updatedProducts = productsAdded.filter(
-      (product) => product.item._id !== itemId
+  const plusQuantity = (itemId, maxQuantity) => {
+    setProductsAdded((prevState) =>
+      prevState.map((product) =>
+        product.item._id === itemId
+          ? product.quantityAdded < maxQuantity
+            ? { ...product, quantityAdded: product.quantityAdded + 1 }
+            : product
+          : product,
+      ),
     );
-    setProductsAdded(updatedProducts);
+  };
+
+  const minusQuantity = (itemId) => {
+    setProductsAdded((prevState) =>
+      prevState
+        .map((product) =>
+          product.item._id === itemId
+            ? product.quantityAdded > 1
+              ? { ...product, quantityAdded: product.quantityAdded - 1 }
+              : null
+            : product,
+        )
+        .filter(Boolean),
+    );
+  };
+
+  const removeItem = (itemId) => {
+    setProductsAdded((prevState) =>
+      prevState
+        .map((product) =>
+          product.item._id === itemId
+            ? product.quantityAdded > 1
+              ? { ...product, quantityAdded: product.quantityAdded - 1 }
+              : null
+            : product,
+        )
+        .filter(Boolean),
+    );
   };
 
   const isInCart = (itemId) => {
     return Boolean(
-      productsAdded.find((product) => product.item._id === itemId)
+      productsAdded.find((product) => product.item._id === itemId),
     );
   };
 
@@ -51,6 +85,8 @@ export const CartContextProvider = ({ children }) => {
     isInCart,
     updateProduct,
     productsAdded,
+    plusQuantity,
+    minusQuantity,
     totalValue,
   };
 

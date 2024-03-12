@@ -7,7 +7,6 @@ export const Categories = ({ categories, selectCategory, handleCategory }) => {
 
   const img = [
     { id: "Artículos varios", image: "images/varios.png" },
-    { id: "Todos", image: "images/todos.webp" },
     { id: "Tocador", image: "images/tocador.png" },
     { id: "Toallas húmedas", image: "images/toallashumedas.png" },
     { id: "Promoción", image: "images/promociones.png" },
@@ -30,10 +29,10 @@ export const Categories = ({ categories, selectCategory, handleCategory }) => {
             return (
               <div key={category} className="items-center">
                 <li
-                  className={`mt-1 flex cursor-pointer items-center  pb-1 transition-transform duration-300 ease-in-out transform ${
+                  className={`mt-1 flex transform cursor-pointer  items-center pb-1 transition-transform duration-300 ease-in-out ${
                     selectCategory === category
-                      ? "font-semibold text-pink-200 translate-x-2"
-                      : "text-gray-600 translate-x-0"
+                      ? "translate-x-2 font-semibold text-pink-200"
+                      : "translate-x-0 text-gray-600"
                   }`}
                   onClick={() => {
                     handleCategory(category);
@@ -46,7 +45,9 @@ export const Categories = ({ categories, selectCategory, handleCategory }) => {
                       className="mr-3 w-7 "
                     />
                   )}
-                  <div className="border-b transition-colors hover:border-pink-200 w-full">{category}</div>
+                  <div className="w-full border-b transition-colors hover:border-pink-200">
+                    {category}
+                  </div>
                 </li>
               </div>
             );
@@ -63,7 +64,7 @@ export const Categories = ({ categories, selectCategory, handleCategory }) => {
         </div>
       </button>
       <ul
-        className={`space-y-3 overflow-hidden rounded-md bg-gray-100 pl-5 transition-all duration-300 ease-in-out ${
+        className={`space-y-3 overflow-hidden rounded-md border border-violet-100 bg-gray-50 pl-5 transition-all duration-300 ease-in-out ${
           isMobileMenuOpen
             ? "mt-4 max-h-screen py-4 opacity-100"
             : "max-h-0 opacity-0"

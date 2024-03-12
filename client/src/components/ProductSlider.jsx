@@ -12,7 +12,7 @@ export const ProductSlider = ({ products }) => {
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 4,
+      items: 2,
       slidesToSlide: 2,
     },
     mobile: {

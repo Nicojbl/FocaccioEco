@@ -42,4 +42,25 @@ export class HandleFunctions {
       console.error("Error al eliminar el producto:", error);
     }
   }
+
+  async handleAgregar(formData, addProduct, setAddLoading) {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/products/addProduct",
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        },
+      );
+      if (response.ok) {
+        const newProduct = await response.json();
+        addProduct(newProduct);
+        setAddLoading(false);
+        return alert("Producto agregado correctamente!");
+      }
+    } catch (error) {
+      console.error("Error al agregar el producto", error);
+    }
+  }
 }

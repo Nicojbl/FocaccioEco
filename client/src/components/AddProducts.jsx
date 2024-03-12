@@ -1,19 +1,24 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { ProductContext } from "../context/ProductsContext";
+import { HandleFunctions } from "../controllers/HandleController";
+
+const handleController = new HandleFunctions();
 
 export const AddProducts = () => {
   const { addProduct } = useContext(ProductContext);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [addLoading, setAddLoading] = useState(false);
 
-  const [datos, setDatos] = useState({
+  const initialState = {
     title: "",
     description: "",
     price: "",
     pricePromo: 0,
     stock: "",
     category: "",
-  });
+  };
+
+  const [datos, setDatos] = useState(initialState);
   const [img, setImg] = useState(null);
 
   const handleChange = (e) => {
@@ -31,7 +36,6 @@ export const AddProducts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsButtonDisabled(true);
     try {
       const formData = new FormData();
       formData.append("img", img);
@@ -53,23 +57,12 @@ export const AddProducts = () => {
         return alert(
           "Por favor rellene todos los campos obligatorios, si el producto no tiene promoción déjelo en 0!",
         );
-      }
-
-      const response = await fetch(
-        "http://localhost:5000/api/products/addProduct",
-        {
-          method: "POST",
-          body: formData,
-          credentials: "include",
-        },
-      );
-      setTimeout(() => {
-        setIsButtonDisabled(false);
-      }, 2000);
-      if (response.ok) {
-        const newProduct = await response.json();
-        addProduct(newProduct);
-        return alert("Producto agregado correctamente!");
+      } else {
+        setAddLoading(true);
+        handleController.handleAgregar(formData, addProduct, setAddLoading);
+        setDatos(initialState);
+        setImg(null);
+        document.getElementById("file-upload").value = "";
       }
     } catch (error) {
       console.error("Error al agregar el producto", error);
@@ -94,9 +87,9 @@ export const AddProducts = () => {
               label="Image"
               name="img"
               id="file-upload"
-              accept=".webp, .png, .jpg"
+              accept=".webp"
               onChange={handleChange}
-              className="w-3/4 border p-2"
+              className="file:hover:scale w-3/4 border p-2 file:transform file:cursor-pointer file:rounded-lg file:border file:bg-blue-400 file:text-white file:transition-colors file:duration-200 file:ease-in-out file:hover:bg-blue-500 file:hover:text-white"
             />
           </div>
           <div className="mb-4 flex flex-row">
@@ -173,15 +166,22 @@ export const AddProducts = () => {
               <option value="Promoción">Promoción</option>
             </select>
           </div>
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className={`mt-6 rounded bg-blue-500 px-4 py-2 font-bold text-white transition duration-300 ease-in-out hover:bg-blue-700 ${isButtonDisabled && "cursor-progress"} `}
-              disabled={isButtonDisabled}
-            >
-              Agregar Producto
-            </button>
-          </div>
+          {addLoading ? (
+            <img
+              src="/assets/loading.gif"
+              alt="cargando"
+              className="m-auto w-[100px]"
+            />
+          ) : (
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="mt-6 rounded bg-blue-500 px-4 py-2 font-bold text-white transition duration-300 ease-in-out hover:bg-blue-700"
+              >
+                Agregar Producto
+              </button>
+            </div>
+          )}
           <Link
             to="/listproducts"
             className="mx-auto mt-[100px] block w-[200px] rounded bg-green-200 px-4 py-2 text-center text-green-800 transition-colors hover:bg-green-300"

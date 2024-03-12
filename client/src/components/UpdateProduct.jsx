@@ -169,7 +169,6 @@ export const UpdateProduct = () => {
               </button>
             </div>
           )}
-
           <Link
             to="/listproducts"
             className="mx-[200px] mb-20 mt-12 block w-[200px] rounded bg-green-200 px-4 py-2 text-center text-green-800 transition-colors hover:bg-green-300"

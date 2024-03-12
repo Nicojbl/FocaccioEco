@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../uploads/upload.js");
+const upload = require("../config.multer");
 const path = require("path");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
@@ -15,11 +15,14 @@ router.post("/login", (req, res) => {
     const token = jwt.sign({ name: "admin" }, process.env.JWT_SECRET, {
       expiresIn: "2h",
     });
-    res.cookie("token", token, {
-      maxAge: 2 * 60 * 60 * 1000,
-      httpOnly: true,
-      secure: true,
-    }).status(200).json(token);
+    res
+      .cookie("token", token, {
+        maxAge: 2 * 60 * 60 * 1000,
+        httpOnly: true,
+        secure: true,
+      })
+      .status(200)
+      .json(token);
   } else {
     res.status(401).json({ error: "Código incorrecto" });
   }
@@ -27,13 +30,13 @@ router.post("/login", (req, res) => {
 
 router.get("/isAdmin", verifyToken, (req, res) => {
   const { name } = req.user;
-console.log(name);
+  console.log(name);
   if (name === "admin") {
     res.status(200).json({ isAdmin: true });
   } else {
     res.status(403).json({ isAdmin: false });
   }
-})
+});
 
 router.post(
   "/addProduct",

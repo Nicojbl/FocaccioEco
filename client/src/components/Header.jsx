@@ -19,15 +19,15 @@ export const Header = () => {
     { id: 4, image: "images/tena.webp" },
   ];
   return (
-    <header className="relative md:flex 2xl:mx-[200px]">
-      <div className="absolute inset-0">
+    <header className="md:relative md:flex 2xl:mx-[200px]">
+      <div className="absolute -mt-12 h-[100%] w-[100%] md:inset-0 md:mt-0 md:h-full">
         <img
-          src="images/bgheader.webp"
+          src="images/bgheader1.svg"
           alt="Background"
-          className="-mt-12 h-[25%] object-cover md:mt-0.5 md:h-[60%] md:w-[50%]"
+          className="h-[100%] w-full object-cover md:p-0.5"
         />
       </div>
-      <div className="animate__animated animate__slideInDown relative z-10 mb-9 shadow-xl shadow-pink-200 md:w-[50%] md:shadow-none">
+      <div className="animate__animated animate__slideInDown relative z-10 shadow-xl shadow-pink-200 md:w-[50%] md:shadow-none">
         <div className="border-b-2 pb-12 md:border-none">
           <img
             src="images/logofocaccio.webp"
@@ -50,9 +50,9 @@ export const Header = () => {
                       <div className="flex items-center">
                         <FontAwesomeIcon
                           icon={faFacebook}
-                          className="text-4xl text-pink-200"
+                          className="text-4xl text-violet-900"
                         />
-                        <p className="nunito-text-regular ml-2">
+                        <p className="nunito-text-regular ml-2 hover:text-violet-900">
                           Contáctenos por Facebook!
                         </p>
                       </div>
@@ -65,9 +65,11 @@ export const Header = () => {
                       <div className="flex items-center">
                         <FontAwesomeIcon
                           icon={faSquareWhatsapp}
-                          className="ml-0.5 text-4xl text-pink-200"
+                          className="ml-0.5 text-4xl text-green-300"
                         />
-                        <p className="nunito-text-regular ml-2">094561790</p>
+                        <p className="nunito-text-regular ml-2 hover:text-green-300">
+                          Abrir chat
+                        </p>
                       </div>
                     </a>
                   </div>
@@ -83,9 +85,9 @@ export const Header = () => {
                   <div className="flex items-center">
                     <FontAwesomeIcon
                       icon={faFacebook}
-                      className="text-4xl text-pink-200"
+                      className="rounded-full bg-white text-4xl text-violet-900"
                     />
-                    <p className="nunito-text-regular ml-2">
+                    <p className="nunito-text-regular ml-2 hover:text-violet-900">
                       Contáctenos por Facebook!
                     </p>
                   </div>
@@ -98,9 +100,11 @@ export const Header = () => {
                   <div className="flex items-center">
                     <FontAwesomeIcon
                       icon={faSquareWhatsapp}
-                      className="ml-0.5 text-4xl text-pink-200"
+                      className="ml-0.5 text-4xl text-green-300"
                     />
-                    <p className="nunito-text-regular ml-2">094561790</p>
+                    <p className="nunito-text-regular ml-2 hover:text-green-300">
+                      Abrir chat
+                    </p>
                   </div>
                 </a>
               </div>
@@ -108,7 +112,7 @@ export const Header = () => {
           </div>
         </div>
       </div>
-      <div className="md:m-auto md:w-[50%]">
+      <div className="my-auto md:w-[50%] ">
         <Carousel slides={slides} />
       </div>
     </header>

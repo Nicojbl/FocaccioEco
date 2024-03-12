@@ -4,11 +4,11 @@ import { NavBar } from "./NavBar";
 
 export const Layout = ({ children }) => {
     return (
-      <main>
+      <div>
         <NavBar />
         {children}
         <Footer />
-      </main>
+      </div>
     );
   };
   
